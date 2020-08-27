@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="../css/font.css">
+        <link rel="stylesheet" href="../css/xadmin.css">
+        <script src="../lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../js/xadmin.js"></script>
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+        <script src="/static/js/html5shiv/r29/html5.min.js"></script>
+        <script src="/static/js/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <blockquote class="layui-elem-quote">欢迎管理员：
+                                <span class="x-red">test</span>！当前时间:2018-04-25 20:50:53
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">本周数据统计</div>
+                        <div class="layui-card-body ">
+                            <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
+                                <li class="layui-col-md2 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>推荐人数</h3>
+                                        <p>
+                                            <cite>66</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>通过人数</h3>
+                                        <p>
+                                            <cite>12</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>面试人数</h3>
+                                        <p>
+                                            <cite>99</cite></p>
+                                    </a>
+                                </li>
+                                <li class="layui-col-md2 layui-col-xs6">
+                                    <a href="javascript:;" class="x-admin-backlog-body">
+                                        <h3>面试通过人数</h3>
+                                        <p>
+                                            <cite>67</cite></p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">候选人列表</div>
+                        <div class="layui-card-body ">
+                            <form class="layui-form layui-col-space5">
+                                <div class="layui-inline layui-show-xs-block">
+                                    <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
+                                </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
+                                </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <input class="layui-input"  autocomplete="off" placeholder="面试时间" name="end" id="interview">
+                                </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <input type="text" name="username"  placeholder="姓名" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline layui-show-xs-block">
+                                    <select name="contrller">
+                                        <option value="">简历状态</option>
+                                        <option value="1">新简历</option>
+                                        <option value="2">待筛选</option>
+                                        <option value="3">预约面试</option>
+                                        <option value="3">面试确认</option>
+                                        <option value="3">改约中</option>
+                                        <option value="3">面试中</option>
+                                        <option value="3">待发offer</option>
+                                        <option value="3">offer确认</option>
+                                        <option value="3">人员入场</option>
+                                        <option value="3">等待到岗</option>
+                                        <option value="3">结束</option>
+                                        <option value="3">简历筛选不通过</option>
+                                        <option value="3">放弃面试</option>
+                                        <option value="3">面试不通过</option>
+                                        <option value="3">放弃offer</option>
+                                        <option value="3">放弃到岗</option>
+                                        <option value="3">关闭岗位</option>
+                                        <option value="3">到岗</option>
+                                    </select>
+                                </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="layui-card-header">
+                            <button class="layui-btn" onclick="xadmin.open('添加用户','static/html/简历添加.html',800,800)"><i class="layui-icon"></i>添加</button>
+                        </div>
+
+                        <div class="layui-card-body layui-table-body layui-table-main">
+                            <table class="layui-table layui-form">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>姓名</th>
+                                    <th>需求编号</th>
+                                    <th>性别</th>
+                                    <th>手机</th>
+                                    <th>地址</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <a href="简历详情.html">
+                                            <cite>张三</cite>
+                                        </a>
+                                    </td>
+                                    <td>1231232</td>
+                                    <td>男</td>
+                                    <td>13000000000</td>
+                                    <td>北京市 海淀区</td>
+                                    <td class="td-status">
+                                        <span class="layui-btn layui-btn-normal layui-btn-mini">已通过</span></td>
+                                    <td class="td-manage">
+                                        <a onclick="down_load('https://www.baidu.com/')" href="javascript:;"  title="下载">
+                                            <i class="layui-icon">&#xe601;</i>
+                                        </a>
+                                        <a title="编辑"  onclick="xadmin.open('编辑','简历编辑.html',800,800)" href="javascript:;">
+                                            <i class="layui-icon">&#xe642;</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="layui-card-body ">
+                            <div class="page">
+                                <div>
+                                    <a class="prev" href="">&lt;&lt;</a>
+                                    <a class="num" href="">1</a>
+                                    <span class="current">2</span>
+                                    <a class="num" href="">3</a>
+                                    <a class="num" href="">489</a>
+                                    <a class="next" href="">&gt;&gt;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style id="welcome_style"></style>
+                <div class="layui-col-md12">
+                    <blockquote class="layui-elem-quote layui-quote-nm">CSIG交付系统</blockquote></div>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>
+
+<!--<script>-->
+<!--layui.use(['laydate', 'form'],-->
+<!--        function() {-->
+<!--            var laydate = layui.laydate;-->
+
+<!--            //执行一个laydate实例-->
+<!--            laydate.render({-->
+<!--                elem: '#start' //指定元素-->
+<!--            });-->
+
+<!--            //执行一个laydate实例-->
+<!--            laydate.render({-->
+<!--                elem: '#end' //指定元素-->
+<!--            });-->
+
+<!--            //执行一个laydate实例-->
+<!--            laydate.render({-->
+<!--                elem: '#interview' //指定元素-->
+<!--            });-->
+<!--        });-->
+
+<!--</script>-->

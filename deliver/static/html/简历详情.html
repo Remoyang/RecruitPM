@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.2</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv/r29/html5.min.js"></script>
+    <script src="../js/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .layui-table th{border-style:hidden;width:25%;}
+        .layui-table tr{border-style:hidden;}
+        a{color:blue}
+    </style>
+</head>
+
+<body>
+<div class="layui-fluid">
+
+<div class="layui-col-md12">
+    <div class="layui-card">
+        <div class="layui-tab-content">
+            <ul class="layui-tab-title">
+                <li class="layui-this"> <a href="javascript:history.go(-1)">返回上级</a></li>
+            </ul>
+        </div>
+        <div class="layui-card-header">简历信息</div>
+        <div class="layui-card-body ">
+                <table class="layui-table" id="layui-table" >
+                <tbody >
+                <tr>
+                    <th>姓名：张三</th>
+                    <td>性别：男</td>
+                </tr>
+                <tr >
+                    <th>年龄：18</th>
+                    <td>出生日期：2000-01</td>
+                </tr>
+                <tr >
+                    <th>身份证号码：431124192211162899</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>工作年限：10年</th>
+                    <td>最高学历：本科</td>
+                </tr>
+                <tr>
+                    <th>手机：18689489522</th>
+                    <td>邮箱：364502021@qq.com</td>
+                </tr>
+                <tr>
+                    <th>现居地: 深圳南山区</th>
+                    <td>期望薪资：20k</td>
+                </tr>
+                <tr>
+                    <td  colspan="2" >推荐评语: 该同事工作认真负责，爱岗敬业，服从整体安排，形象良好;对本职工作兢兢业业，锐意进取，乐于助人，关心同事，与同事相处融洽，善于合作，起带头作用，专业技能业务水平优秀，为公司创造好的企业效益。</td>
+                </tr>
+                <tr>
+                    <th colspan="2">附件下载：<a href="">12312.pdf</a></th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="layui-card-header">简历操作流水</div>
+        <div class="layui-card-body ">
+            <ul class="layui-timeline">
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                    <div class="layui-timeline-content layui-text">
+                        <h6 class="layui-timeline-title">2020年8月18日 </h6>
+                        <p>
+                            推荐简历
+                        </p>
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                    <div class="layui-timeline-content layui-text">
+                        <h5 class="layui-timeline-title">2020年8月18日 </h5>
+                        <p>
+                            推荐简历->简历通过
+                        </p>
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                    <div class="layui-timeline-content layui-text">
+                        <h5 class="layui-timeline-title">2020年8月18日</h5>
+                        <p>
+                            预约面试->面试时间：2020-05-02 16:35
+
+                        </p>
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                    <div class="layui-timeline-content layui-text">
+                        <div class="layui-timeline-title">面试通过</div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div class="layui-card-body ">
+            <button class="layui-btn" onclick="xadmin.open('编辑简历','./简历添加.html',800,800)"><i class="layui-icon">&#xe642;</i>编辑简历</button>
+            <button class="layui-btn" onclick="xadmin.open('推荐简历','./recommend.html',800,800)">推荐简历</button>
+            <button class="layui-btn layui-btn-danger" onclick="member_del('','/latterInfo/delAll')"><i class="layui-icon"></i>删除简历</button>
+        </div>
+        <div style="height: 30px;"></div>
+    </div>
+
+</div>
+<div class="layui-col-md12">
+    <blockquote class="layui-elem-quote layui-quote-nm">CSIG交付系统</blockquote></div>
+</div>
+</body>
+<script src="/static/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var url = layui.url();
+        console.log(url);
+        $.get("/api/v1.0/resume/list/1", function (resp) {
+            // alert(resp.data[0].auth_name);
+            var $data = resp.data;
+            console.log(resp.data[0].auth_name);
+
+            for (var index = 0; index < $data.length; index++) {
+                {
+                    result = $data[index];
+                    console.log("result" + result.auth_name);
+                    // console.log('for ok');
+                    $('.auth_list').append(
+                        ' <tbody id="house-detail-tmpl">'
+                        // +'<td><input type="checkbox" name=""  lay-skin="primary"></td>'
+                        + '<td>' + result.auth_id + '</td>'
+                        + '<td>' + result.url + '</td>'
+                        + '<td>' + result.auth_name + '</td>'
+                        + '<td class="td-manage">'
+                        + '<button class="layui-btn layui-btn layui-btn-xs"  onclick="xadmin.open("编辑","admin-edit.html")" ><i class="layui-icon">&#xe642;</i>编辑</button>'
+                        + '<button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="member_del(this,"要删除的id")" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>'
+                        + '</td></tbody>'
+                        // + '<td>'+result.auth_name+'</td>'
+                    );
+                }
+            }
+        });
+    });
+
+
+
+    /*删除*/
+    function member_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+        });
+    }
+</script>
+</html>

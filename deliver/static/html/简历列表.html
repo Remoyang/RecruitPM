@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.2</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="/static//css/font.css">
+        <link rel="stylesheet" href="/static//css/xadmin.css">
+        <script src="/static//lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/static//js/xadmin.js"></script>
+        <!--[if lt IE 9]>
+        <script src="/static//js/html5shiv/r29/html5.min.js"></script>
+        <script src="/static//js/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">演示</a>
+            <a>
+              <cite>导航元素</cite></a>
+          </span>
+          <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+        </div>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <form class="layui-form layui-col-space5">
+                                <div class="layui-inline layui-show-xs-block">
+                                    <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
+                                </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
+                                </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <input class="layui-input"  autocomplete="off" placeholder="面试时间" name="end" id="interview">
+                                </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <input type="text" name="username"  placeholder="姓名" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline layui-show-xs-block">
+                                    <select name="contrller">
+                                        <option value="">简历状态</option>
+                                        <option value="1">新简历</option>
+                                        <option value="2">待筛选</option>
+                                        <option value="3">预约面试</option>
+                                        <option value="3">面试确认</option>
+                                        <option value="3">改约中</option>
+                                        <option value="3">面试中</option>
+                                        <option value="3">待发offer</option>
+                                        <option value="3">offer确认</option>
+                                        <option value="3">人员入场</option>
+                                        <option value="3">等待到岗</option>
+                                        <option value="3">结束</option>
+                                        <option value="3">简历筛选不通过</option>
+                                        <option value="3">放弃面试</option>
+                                        <option value="3">面试不通过</option>
+                                        <option value="3">放弃offer</option>
+                                        <option value="3">放弃到岗</option>
+                                        <option value="3">关闭岗位</option>
+                                        <option value="3">到岗</option>
+                                    </select>
+                                </div>
+                                <div class="layui-inline layui-show-xs-block">
+                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="layui-card-header">
+                            <button class="layui-btn" onclick="xadmin.open('添加简历','./简历添加.html',800,800)"><i class="layui-icon"></i>添加简历</button>
+                        </div>
+
+                        <div class="layui-card-body layui-table-body layui-table-main">
+                            <table class="layui-table layui-form">
+                                <thead>
+                                  <tr>
+                                      <th>ID</th>
+                                      <th>姓名</th>
+                                      <th>需求编号</th>
+                                      <th>性别</th>
+                                      <th>手机</th>
+                                      <th>地址</th>
+                                      <th>状态</th>
+                                      <th>操作</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <a href="./简历详情.html">
+                                            <cite>张三</cite>
+                                        </a>
+                                    </td>
+                                    <td>1231232</td>
+                                    <td>男</td>
+                                    <td>13000000000</td>
+                                    <td>北京市 海淀区</td>
+                                    <td class="td-status">
+                                      <span class="layui-btn layui-btn-normal layui-btn-mini">已通过</span></td>
+                                    <td class="td-manage">
+                                      <a onclick="down_load('https://www.baidu.com/')" href="javascript:;"  title="下载">
+                                        <i class="layui-icon">&#xe601;</i>
+                                      </a>
+                                      <a title="编辑"  onclick="xadmin.open('编辑','member-edit.html',600,400)" href="javascript:;">
+                                        <i class="layui-icon">&#xe642;</i>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="layui-card-body ">
+                            <div class="page">
+                                <div>
+                                  <a class="prev" href="">&lt;&lt;</a>
+                                  <a class="num" href="">1</a>
+                                  <span class="current">2</span>
+                                  <a class="num" href="">3</a>
+                                  <a class="num" href="">489</a>
+                                  <a class="next" href="">&gt;&gt;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </body>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script>
+      layui.use(['laydate','form'], function(){
+        var laydate = layui.laydate;
+        var  form = layui.form;
+
+        // 监听全选
+        form.on('checkbox(checkall)', function(data){
+          if(data.elem.checked){
+            $('tbody input').prop('checked',true);
+          }else{
+            $('tbody input').prop('checked',false);
+          }
+          form.render('checkbox');
+        }); 
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#end' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+           elem: '#interview' //指定元素
+        });
+
+      });
+
+
+      /*下载*/
+      function down_load(url){
+              var xhr = new XMLHttpRequest();
+              xhr.open('POST', url, true);        // 也可以使用POST方式，根据接口
+              xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+              xhr.responseType = "blob";    // 返回类型blob
+              // 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑
+              xhr.onload = function () {
+                  if (this.status === 200) {
+                      var blob = this.response;
+                      var reader = new FileReader();
+                      reader.readAsDataURL(blob);    // 转换为base64，可以直接放入a表情href
+                      reader.onload = function (e) {
+                          // 转换完成，创建一个a标签用于下载
+                          var a = document.createElement('a');
+                          a.download = 'data.xlsx';
+                          a.href = e.target.result;
+                          $("body").append(a);    // 修复firefox中无法触发click
+                          a.click();
+                          $(a).remove();
+                      }
+                  }
+
+                  if(this.status === 403){
+                      layer.msg('没有导出权限 请联系管理员!',{icon:5,time:2000});
+                  }
+              };
+
+              // 发送ajax请求
+              xhr.send('id=1')
+      }
+
+    $(document).ready(function () {
+                $.get("/api/v1.0/auth/resume/1", function (resp) {
+                    // alert(resp.data[0].auth_name);
+                    var $data = resp.data;
+                    console.log(resp.data[0].auth_name);
+
+                    for(var index = 0; index < $data.length; index++){
+                        {
+                            result = $data[index];
+                            console.log("result" + result.auth_name);
+                             // console.log('for ok');
+                             $('.auth_list').append(
+                                 ' <tbody id="house-detail-tmpl">'
+                                 // +'<td><input type="checkbox" name=""  lay-skin="primary"></td>'
+                                 +'<td>'+result.auth_id +'</td>'
+                                 +'<td>'+result.url+'</td>'
+                                 +'<td>'+result.auth_name+'</td>'
+                                 +'<td class="td-manage">'
+                                 +'<button class="layui-btn layui-btn layui-btn-xs"  onclick="xadmin.open("编辑","admin-edit.html")" ><i class="layui-icon">&#xe642;</i>编辑</button>'
+                                 +'<button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="member_del(this,"要删除的id")" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>'
+                                 +'</td></tbody>'
+                                 // + '<td>'+result.auth_name+'</td>'
+                             );
+                        }
+
+                }});
+            });
+
+    </script>
+</html>
