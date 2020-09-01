@@ -94,7 +94,7 @@
                                   <tr>
                                     <td>1</td>
                                     <td>
-                                        <a href="./简历详情.html">
+                                        <a href="./简历详情.html?id=1">
                                             <cite>张三</cite>
                                         </a>
                                     </td>
@@ -200,7 +200,7 @@
       }
 
     $(document).ready(function () {
-                $.get("/api/v1.0/auth/resume/1", function (resp) {
+                $.get("/api/v1.0/resume/list/1", function (resp) {
                     // alert(resp.data[0].auth_name);
                     var $data = resp.data;
                     console.log(resp.data[0].auth_name);
