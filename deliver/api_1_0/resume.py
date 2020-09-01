@@ -156,14 +156,15 @@ def resunme_list(page=None):
         current_app.logger.error(e)
         return jsonify(errno=RET.DBERR, errmsg='获取权限信息异常')
 
-    data = [v.resume_to_dict() for v in resume.items]
+    # data = [v.resume_to_dict() for v in resume.items]
+    data = resume.items.resume_to_dict()
     # 返回结果
     return jsonify(errno=RET.OK, errmsg='成功', data=data)
 
 
 # 简历详情
-@api.route('/resunme/show/<int:id>', methods=['GET'])
-def resunme_show(id=None):
+@api.route('/resunme/show/<int:rid>', methods=['GET'])
+def resunme_show(rid=None):
     """
     获取简历信息接口
     1/校验参数
@@ -173,14 +174,14 @@ def resunme_show(id=None):
     :param id:
     :return:
     """
-    if id is None:
+    if rid is None:
         return jsonify(errno=RET.PARAMERR, errmsg='参数错误')
     try:
-        resume = Resume.query.paginate(id, 10, False)
+        resume = Resume.query.paginate(int(rid), 1, False)
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify(errno=RET.DBERR, errmsg='获取权限信息异常')
+        return jsonify(errno=RET.DBERR, errmsg='获取简历详情信息异常')
 
-    data = [v.resume_to_dict() for v in resume.items]
-
+    # data = [v.resume_to_dict() for v in resume.items]
+    data = resume.items[0].resume_to_dict()
     return jsonify(errno=RET.OK, errmsg='成功', data=data)
