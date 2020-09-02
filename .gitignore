@@ -1,0 +1,9 @@
+
+*.pyc
+*.pyc
+*.pyc
+*.pyc
+venv
+venv/Include
+venv
+venv/Include
