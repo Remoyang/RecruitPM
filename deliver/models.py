@@ -177,7 +177,7 @@ class Resume(BaseModel, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(32), nullable=False)  # 候选人姓名
-    sex = db.Column(db.Enum("男", "女"))  # 性别
+    sex = db.Column(db.String(2))  # 性别
     age = db.Column(db.Integer)  # 年龄
     uuid = db.Column(db.String(20), unique=True, nullable=False)  # 身份证号
     phone = db.Column(db.String(11), unique=True, nullable=False)  # 手机号码
