@@ -14,4 +14,4 @@ venv/Include
 .idea/vcs.xml
 .idea/workspace.xml
 logs/log
-migrations
+logs/log
