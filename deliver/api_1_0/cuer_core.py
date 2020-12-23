@@ -196,7 +196,7 @@ def role_del():
     return jsonify(errno=RET.OK, errmsg='删除角色成功')
 
 # 角色列表
-@api.route('/role/list/<int:page>', methods=['POST'])
+@api.route('/role/list/<int:page>', methods=['GET'])
 def role_list(page=None):
     """
     删除角色
@@ -210,15 +210,15 @@ def role_list(page=None):
     """
     if page is None:
         page = 1
+    try:
+        role = Role.query.paginate(page, 10, False)
+    except Exception as e:
+        current_app.logger.error(e)
+        return jsonify(errno=RET.DBERR, errmsg='获取权限信息异常')
 
-    role_data = request.get_json()
-    if not role_data:
-        return jsonify(errno=RET.PARAMERR, errmsg='参数错误')
-
-    pass
-
+    data = [v.to_dict() for v in role.items]
     # 返回结果
-    return jsonify(errno=RET.OK, errmsg='删除角色成功')
+    return jsonify(errno=RET.OK, errmsg='成功', data=data)
 
 # 角色编辑
 @api.route('/role/edit', methods=['POST'])

@@ -9,25 +9,52 @@ SMS_CODE_REDIS_EXPIRES = 300
 # 七牛空间域名
 QINIU_DOMIN_PREFIX = "http://ouwyn64sa.bkt.clouddn.com/"
 
+# 七牛命名空间
+QINIU_SPACE_NAME = 'csig'
+
 # 城区信息redis缓存时间，单位：秒
-AREA_INFO_REDIS_EXPIRES = 7200
+# AREA_INFO_REDIS_EXPIRES = 7200
 
 # 首页展示最多的房屋数量
-HOME_PAGE_MAX_HOUSES = 5
+# HOME_PAGE_MAX_HOUSES = 5
 
 # 首页房屋数据的Redis缓存时间，单位：秒
-HOME_PAGE_DATA_REDIS_EXPIRES = 7200
+# HOME_PAGE_DATA_REDIS_EXPIRES = 7200
 
 # 房屋详情页展示的评论最大数
-HOUSE_DETAIL_COMMENT_DISPLAY_COUNTS = 30
+# HOUSE_DETAIL_COMMENT_DISPLAY_COUNTS = 30
 
 # 房屋详情页面数据Redis缓存时间，单位：秒
-HOUSE_DETAIL_REDIS_EXPIRE_SECOND = 7200
+# HOUSE_DETAIL_REDIS_EXPIRE_SECOND = 7200
 
 # 房屋列表页面每页显示条目数
-HOUSE_LIST_PAGE_CAPACITY = 2
+# HOUSE_LIST_PAGE_CAPACITY = 2
 
 # 房屋列表页面Redis缓存时间，单位：秒
-HOUSE_LIST_REDIS_EXPIRES = 7200
+# HOUSE_LIST_REDIS_EXPIRES = 7200
 
 JSON_AS_ASCII = False
+
+# 简历状态字字典
+RESUME_STATE = {
+    "0": "新简历",
+    "1": "简历初筛选不通过",
+    "2": "待筛选",
+    "3": "预约面试",
+    "4": "面试确认",
+    "5": "改约中",
+    "6": "面试中",
+    "7": "待发offer",
+    "9": "offer确认",
+    "10": "人员入场",
+    "11": "等待到岗",
+    "12": "结束",
+    "13": "简历筛选不通过",
+    "14": "放弃面试",
+    "15": "面试不通过",
+    "16": "放弃offer",
+    "17": "放弃到岗",
+    "18": "关闭岗位",
+    "19": "到岗",
+    "20": "离职"
+}

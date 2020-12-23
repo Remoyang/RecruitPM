@@ -47,16 +47,16 @@
                             </form>
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+<!--                            <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>-->
                             <button class="layui-btn" onclick="xadmin.open('添加用户','/static/html/role-add.html',600,600)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body ">
-                            <table class="layui-table layui-form">
+                            <table class="layui-table layui-form role_list">
                               <thead>
                                 <tr>
-                                  <th>
-                                    <input type="checkbox" name=""  lay-skin="primary">
-                                  </th>
+<!--                                  <th>-->
+<!--                                    <input type="checkbox" name=""  lay-skin="primary">-->
+<!--                                  </th>-->
                                   <th>ID</th>
                                   <th>角色名</th>
                                   <th>拥有权限规则</th>
@@ -66,28 +66,28 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td>
-                                    <input type="checkbox" name=""  lay-skin="primary">
-                                  </td>
-                                  <td>1</td>
-                                  <td>超级管理员</td>
-                                  <td>会员列表，问题列表</td>
-                                  <td>具有至高无上的权利</td>
-                                  <td class="td-status">
-                                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
-                                  <td class="td-manage">
-                                    <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                                      <i class="layui-icon">&#xe601;</i>
-                                    </a>
-                                    <a title="编辑"  onclick="xadmin.open('编辑','/static/html/role-add.html')" href="javascript:;">
-                                      <i class="layui-icon">&#xe642;</i>
-                                    </a>
-                                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                      <i class="layui-icon">&#xe640;</i>
-                                    </a>
-                                  </td>
-                                </tr>
-                              </tbody>
+<!--                                  <td>-->
+<!--                                    <input type="checkbox" name=""  lay-skin="primary">-->
+<!--                                  </td>-->
+<!--                                  <td>1</td>-->
+<!--                                  <td>超级管理员</td>-->
+<!--                                  <td>会员列表，问题列表</td>-->
+<!--                                  <td>具有至高无上的权利</td>-->
+<!--                                  <td class="td-status">-->
+<!--                                    <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>-->
+<!--                                  <td class="td-manage">-->
+<!--                                    <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">-->
+<!--                                      <i class="layui-icon">&#xe601;</i>-->
+<!--                                    </a>-->
+<!--                                    <a title="编辑"  onclick="xadmin.open('编辑','/static/html/role-add.html')" href="javascript:;">-->
+<!--                                      <i class="layui-icon">&#xe642;</i>-->
+<!--                                    </a>-->
+<!--                                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">-->
+<!--                                      <i class="layui-icon">&#xe640;</i>-->
+<!--                                    </a>-->
+<!--                                  </td>-->
+<!--                                </tr>-->
+<!--                              </tbody>-->
                             </table>
                         </div>
                         <div class="layui-card-body ">
@@ -107,7 +107,41 @@
             </div>
         </div> 
     </body>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/template.js"></script>
     <script>
+        $(document).ready(function () {
+            $.get("/api/v1.0/role/list/1", function (resp) {
+            // alert(resp.data[0].auth_name);
+                var $data = resp.data;
+                console.log(resp.data[0].role_name);
+
+                for(var index = 0; index < $data.length; index++){
+                    {
+                        result = $data[index];
+                        console.log("result" + result.role_name);
+                         // console.log('for ok');
+                         $('.role_list').append(
+                             ' <tbody id="house-detail-tmpl"> <rt>'
+                             // +'<td><input type="checkbox" name=""  lay-skin="primary"></td>'
+                             +'<td>'+result.role_id +'</td>'
+                             +'<td>'+result.role_name+'</td>'
+                             +'<td>'+result.auths+'</td>'
+                             +'<td>null</td>'
+                             +'<td class="td-status">\n'
+                             +'<span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>'
+                             // +'<td class="td-manage">'
+                             // +'</td>'
+                             +'<td class="td-manage">'
+                             +'<button class="layui-btn layui-btn layui-btn-xs"  onclick="xadmin.open("编辑","admin-edit.html")" ><i class="layui-icon">&#xe642;</i>编辑</button>'
+                             +'<button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="member_del(this,"要删除的id")" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>'
+                             +'</td></tr></tbody>'
+                             // + '<td>'+result.auth_name+'</td>'
+                         );
+                    }
+            }});
+        });
+
       layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
         var form = layui.form;

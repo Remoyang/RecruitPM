@@ -1,9 +1,12 @@
 # -*- coding:utf-8 -*-
-
+# 导入时间模块
 from datetime import datetime
-
+# 导入加密模块
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db
+# 导入配置
+from constant import RESUME_STATE
+from deliver import db
+# from . import db
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -113,17 +116,17 @@ class Role(BaseModel, db.Model):
     def to_dict(self):
         """将角色信息转换为字典数据"""
 
-        auth_dict = {
+        role_dict = {
             "role_id": self.id,
-            "rolel_name": self.name,
+            "role_name": self.name,
             "auths": self.auths
         }
-        return auth_dict
+        return role_dict
 
 
 # 权限
 class Auth(BaseModel, db.Model):
-    """角色"""
+    """权限"""
 
     __tablename__ = 'auth'
     # 定义角色权限表在数据库中的名称
@@ -150,25 +153,6 @@ class Auth(BaseModel, db.Model):
         return auth_dict
 
 
-class Test(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
-
-    username = db.Column(db.String(80), unique=True)
-
-    email = db.Column(db.String(120), unique=True)
-
-    def __init__(self, username, email):
-
-        self.username = username
-
-        self.email = email
-
-    def __repr__(self):
-
-        return '<User %r>' % self.username
-
-
 # 简历
 class Resume(BaseModel, db.Model):
     """简历"""
@@ -183,12 +167,16 @@ class Resume(BaseModel, db.Model):
     phone = db.Column(db.String(11), unique=True, nullable=False)  # 手机号码
     email = db.Column(db.String(100), unique=True, nullable=False)  # 邮箱
     education = db.Column(db.String(11))  # 学历
-    exp = db.Column(db.String(11))  # 工作经验
+    exp = db.Column(db.String(11))  # 工作年限
     wish_money = db.Column(db.String(11))  # 期望薪资
-    evaluate = db.Column(db.String(100))  # 推荐评语
+    self_evaluation = db.Column(db.TEXT)  # 自我评价
+    job_exp = db.Column(db.TEXT)  # 工作经验
+    recruit_exp = db.Column(db.TEXT)  # 项目经验
+    evaluate = db.Column(db.TEXT)  # 推荐评语
     file = db.relationship("ResumeFile", backref='resume')  # 附件
     state = db.Column(db.Integer, nullable=False)  # 简历状态
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)  # 所属招聘
+    project_join = db.relationship("ProjectJoinResume", backref='resume')   # 需求关联表
 
     def resume_to_dict(self):
         """将简历信息转换为字典数据"""
@@ -204,7 +192,10 @@ class Resume(BaseModel, db.Model):
             "exp": self.exp,
             "wish_money": self.wish_money,
             "evaluate": self.evaluate,
-            "state": self.state
+            "self_evaluation": self.self_evaluation,
+            "job_exp": self.job_exp,
+            "recruit_exp": self.recruit_exp,
+            "state": RESUME_STATE[str(self.state)]
         }
         return resume_dict
 
@@ -214,16 +205,78 @@ class ResumeFile(BaseModel, db.Model):
     __tablename__ = 'resume_file'
 
     id = db.Column(db.Integer, primary_key=True)
-    house_id = db.Column(db.Integer, db.ForeignKey("resume.id"), nullable=False)
+    resume_id = db.Column(db.Integer, db.ForeignKey("resume.id"))
     url = db.Column(db.String(256), nullable=False)
-    fileName = db.Column(db.String(20), nullable=False)
+    fileName = db.Column(db.String(128), nullable=False)
+    fileKey = db.Column(db.String(128), nullable=False)
+
+    def ResumeFile_to_dict(self):
+        """将简历附件信息转换为字典数据"""
+        ResumeFile_dict ={
+            "id": self.id,
+            "resume_id": self.resume_id,
+            "url": self.url,
+            "fileName": self.fileName,
+            "fileKey": self.fileKey,
+        }
+        return ResumeFile_dict
 
 
-"""
-简历关联表
-创建简历的时候生成条记录用于简历列表使用 同时 每次推荐生成简历日志表 记录推荐日志
+class ProjectJoinResume(BaseModel, db.Model):
+    """
+    简历关联表
+    创建简历的时候生成条记录用于简历列表使用 同时 每次推荐生成简历日志表 记录推荐日志
 
-"""
+    """
+    __tablename__ = 'project_join_resume'
+
+    id = db.Column(db.Integer, primary_key=True)
+    resume_id = db.Column(db.Integer, db.ForeignKey("resume.id"), nullable=False)
+    project_id = db.Column(db.String(11))  # 推荐的项目岗位ID
+    project_name = db.Column(db.String(11))  # 推荐的项目岗位名称
+    push_time = db.Column(db.DateTime)  # 推荐面试时间
+    adopt_time = db.Column(db.DateTime)  # 面试通过时间
+    resumelog = db.Column(db.Integer, db.ForeignKey("resume_log.id"), nullable=False)  # 流水日志ID
+
+
+class ResumeLog(BaseModel, db.Model):
+    """简历日志流水表"""
+
+    __tablename__ = 'resume_log'
+
+    id = db.Column(db.Integer, primary_key=True)
+    project_join = db.relationship("ProjectJoinResume", backref='resume_log')  # 需求关联表
+    info = db.Column(db.TEXT)  # 日志信息
+
+
+class Project(BaseModel, db.Model):
+    """项目需求表"""
+
+    __tablename__ = 'project'
+
+    id = db.Column(db.Integer, primary_key=True)  # 项目岗位ID
+    project_id = db.Column(db.String(20), nullable=False)  # 项目岗位编号
+    job_name = db.Column(db.String(32), nullable=False)  # 岗位名称
+    Job_type = db.Column(db.String(32), nullable=False)  # 岗位类型
+    level = db.Column(db.String(32), nullable=False)  # 级
+    other = db.Column(db.String(32), nullable=False)  # 别
+    lead = db.Column(db.String(32), nullable=False)  # 面试官
+    audition_site = db.Column(db.String(32), nullable=False)  # 面试地点
+    education = db.Column(db.String(11))  # 学历要求
+    exp = db.Column(db.String(11))  # 工作经验
+    entry_time = db.Column(db.DateTime)  # 期望到岗时间
+    offer = db.Column(db.String(32), nullable=False)  # 报价
+    hc = db.Column(db.Integer, nullable=False)  # hc
+    project_name = db.Column(db.String(32), nullable=False)  # 项目名称
+    job_feature = db.Column(db.TEXT, nullable=False)  # JD
+    job_Duty = db.Column(db.TEXT, nullable=False)  # 工作职责
+    city = db.Column(db.String(32), nullable=False)  # 城市
+    office_site = db.Column(db.String(32))  # 办公地点
+    hc_type = db.Column(db.String(32), nullable=False)  # hc类型
+    urgent_level = db.Column(db.String(32), nullable=False)  # 紧急程度
+    info = db.Column(db.TEXT)   # 备注
+
+
 # if __name__ == '__main__':
     # 1
     # db.create_all()
@@ -234,7 +287,9 @@ class ResumeFile(BaseModel, db.Model):
     # db.session.commit()
 
     # 2.1
-    # auth = Auth(name="添加权限", url="authadd")
+    # role = Role(name="管理员", auths="[]")
+    # auth = Auth(auth_name="添加权限", url="/user/add")
+    # db.session.add(role)
     # db.session.add(auth)
     # db.session.commit()
 

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.2</title>
+    <title>简历详情页</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -45,42 +45,8 @@
             </div>
             <div class="layui-card-header">简历信息</div>
 
-            <div class="layui-card-body  resume-book">
-                <script id="resume-detail-tmpl" type="text/html">
-                    <table class="resume-table" id="resume-table">
-                        <tbody>
-                        <tr>
-                            <th>姓名：{{name}}</th>
-                            <td>性别：{{sex}}</td>
-                        </tr>
-                        <tr>
-                            <th>年龄：{{age}}</th>
-                            <td>身份证号码：{{uuid}}</td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th>工作年限：{{exp}}</th>
-                            <td>最高学历：{{education}}</td>
-                        </tr>
-                        <tr>
-                            <th>手机：{{phone}}</th>
-                            <td>邮箱：{{email}}</td>
-                        </tr>
-                        <tr>
-                            <td>期望薪资：{{wish_money}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">推荐评语: {{evaluate}}</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2">附件下载：<a href="">12312.pdf</a></th>
-                        </tr>
-                        </tbody>
-                    </table>
-                </script>
+            <div class="layui-card-body resume-table resume-book">
+
             </div>
 
             <div class="layui-card-header">简历操作流水</div>
@@ -126,22 +92,64 @@
             <div class="layui-card-body ">
                 <button class="layui-btn" onclick="xadmin.open('编辑简历','./简历添加.html',800,800)"><i class="layui-icon">&#xe642;</i>编辑简历
                 </button>
-                <button class="layui-btn" onclick="xadmin.open('推荐简历','./recommend.html',800,800)">推荐简历</button>
-                <button class="layui-btn layui-btn-danger" onclick="member_del('','/latterInfo/delAll')"><i
-                        class="layui-icon"></i>删除简历
-                </button>
+                <button class="layui-btn" onclick="xadmin.open('推荐简历','./recommend.html',800,800)"><i class="layui-icon">&#xe642;</i>推荐简历</button>
+                <button class="layui-btn layui-btn-danger" onclick="member_del('删除简历','./resime/del/')"><i class="layui-icon"></i>删除简历</button>
             </div>
             <div style="height: 30px;"></div>
         </div>
 
     </div>
     <div class="layui-col-md12">
-        <blockquote class="layui-elem-quote layui-quote-nm">CSIG交付系统</blockquote>
+        <blockquote class="layui-elem-quote layui-quote-nm">CSIG交付系统——核对信息，谨慎操作</blockquote>
     </div>
 </div>
 </body>
 <script src="/static/js/jquery.min.js"></script>
 <script src="/static/js/template.js"></script>
+<script id="resume-detail-tmpl" type="text/html">
+                    <table class="layui-table resume-table" id="resume-table">
+                        <tbody>
+                        <tr>
+                            <th>姓名：{{name}}</th>
+                            <td>性别：{{sex}}</td>
+                        </tr>
+                        <tr>
+                            <th>年龄：{{age}}</th>
+                            <td>身份证号码：{{uuid}}</td>
+                        </tr>
+                        <tr>
+                            <th>工作年限：{{exp}}</th>
+                            <td>最高学历：{{education}}</td>
+                        </tr>
+                        <tr>
+                            <th>手机：{{phone}}</th>
+                            <td>邮箱：{{email}}</td>
+                        </tr>
+                        <tr>
+                            <td>期望薪资：{{wish_money}}</td>
+                        </tr>
+                        <tr>
+                            <td>自我评价: </td>
+                            <td> {{self_evaluation}}</td>
+                        </tr>
+                        <tr>
+                            <td>工作经验: </td>
+                            <td>{{job_exp}}</td>
+                        </tr>
+                        <tr>
+                            <td>项目经验: </td>
+                            <td>{{recruit_exp}}</td>
+                        </tr>
+                        <tr>
+                            <td>推荐评语: </td>
+                             <td>{{evaluate}}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">附件下载：<a href={{ file_url }}>{{ fileName }}</a></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </script>
 <script>
 
     $(document).ready(function () {
@@ -150,7 +158,7 @@
         var rId = queryData['id'];
 
         // 获取该简历的详细信息
-        $.get("/api/v1.0/resunme/show/" + rId, function (resp) {
+        $.get("/api/v1.0/resume/show/" + rId, function (resp) {
             // alert(resp.data[0].auth_name);
             if (resp.errno == '0') {
                 var data = resp.data;

@@ -3,10 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.2</title>
+    <title>简历添加页</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="stylesheet" href="/static/css/font.css">
     <link rel="stylesheet" href="/static/css/xadmin.css">
     <script type="text/javascript" src="/static/lib/layui/layui.js" charset="utf-8"></script>
@@ -25,32 +26,37 @@
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>姓名</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="name" name="name" required="" lay-verify="name" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="name" name="name" required="" lay-verify="name" autocomplete="off"
+                           class="layui-input"></div>
             </div>
             <div class="layui-form-item">
                 <label for="uuid" class="layui-form-label">
                     <span class="x-red">*</span>身份证号</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="uuid" name="uuid" required="" lay-verify="uuid" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="uuid" name="uuid" required="" lay-verify="uuid" autocomplete="off"
+                           class="layui-input"></div>
             </div>
             <div class="layui-form-item">
                 <label for="phone" class="layui-form-label">
                     <span class="x-red">*</span>手机</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="phone" name="phone" required="" lay-verify="phone" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="phone" name="phone" required="" lay-verify="phone" autocomplete="off"
+                           class="layui-input"></div>
             </div>
             <div class="layui-form-item">
                 <label for="wxid" class="layui-form-label">
                     <span class="x-red">*</span>微信号</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="wxid" name="wxid" required="" lay-verify="wxid" autocomplete="off" class="layui-input">
+                    <input type="text" id="wxid" name="wxid" required="" lay-verify="wxid" autocomplete="off"
+                           class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="email" class="layui-form-label">
                     <span class="x-red">*</span>邮箱</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="email" name="email" required="" lay-verify="email" autocomplete="off" class="layui-input">
+                    <input type="text" id="email" name="email" required="" lay-verify="email" autocomplete="off"
+                           class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -61,7 +67,8 @@
                         <option value="大专">大专</option>
                         <option value="本科">本科</option>
                         <option value="研究生">研究生</option>
-                        <option value="高中">高中</option></select>
+                        <option value="高中">高中</option>
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -74,33 +81,60 @@
                         <option value="2-3年">2-3年</option>
                         <option value="3-4年">3-4年</option>
                         <option value="4-5年">4-5年</option>
-                        <option value="5年以上">5年以上</option></select>
+                        <option value="5年以上">5年以上</option>
+                    </select>
                 </div>
             </div>
 
-<!--            <div class="layui-form-item">-->
-<!--                <label for="wish_money" class="layui-form-label">-->
-<!--                    <span class="x-red">*</span>现居地</label>-->
-<!--                <div class="layui-input-inline">-->
-<!--                    <input type="text" id="addr" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>-->
-<!--            </div>-->
+            <!--            <div class="layui-form-item">-->
+            <!--                <label for="wish_money" class="layui-form-label">-->
+            <!--                    <span class="x-red">*</span>现居地</label>-->
+            <!--                <div class="layui-input-inline">-->
+            <!--                    <input type="text" id="addr" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>-->
+            <!--            </div>-->
 
             <div class="layui-form-item">
                 <label for="wish_money" class="layui-form-label">
                     <span class="x-red">*</span>期望薪资
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="wish_money" name="wish_money" required="" lay-verify="wish_money" autocomplete="off" class="layui-input">
+                    <input type="text" id="wish_money" name="wish_money" required="" lay-verify="wish_money"
+                           autocomplete="off" class="layui-input">
                 </div>
             </div>
-<!--            <div class="layui-form-item layui-form-text">-->
-<!--                <label for="desc" class="layui-form-label">-->
-<!--                    <span class="x-red">*</span>教育经历-->
-<!--                </label>-->
-<!--                <div class="layui-input-block">-->
-<!--                    <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--            <div class="layui-form-item layui-form-text">-->
+            <!--                <label for="desc" class="layui-form-label">-->
+            <!--                    <span class="x-red">*</span>教育经历-->
+            <!--                </label>-->
+            <!--                <div class="layui-input-block">-->
+            <!--                    <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="layui-form-item">
+                <label for="self_evaluation" class="layui-form-label">
+                    <span class="x-red">*</span>自我评价
+                </label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入推荐评语" id="self_evaluation" name="self_evaluation"
+                              class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="job_exp" class="layui-form-label">
+                    <span class="x-red">*</span>工作经验
+                </label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入推荐评语" id="job_exp" name="job_exp" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="recruit_exp" class="layui-form-label">
+                    <span class="x-red">*</span>项目经验
+                </label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入推荐评语" id="recruit_exp" name="recruit_exp" class="layui-textarea"></textarea>
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label for="evaluate" class="layui-form-label">
                     <span class="x-red">*</span>推荐评语
@@ -114,8 +148,9 @@
                 <label for="file" class="layui-form-label">
                     <span class="x-red">*</span>上传附件
                 </label>
-                <input  style="display: none" name="file" placeholder="导入"  type="file"  value="{{ old('image') }}" class="layui-input" >
-                <button  type="button" class="layui-btn" id="test1">
+
+                <input style="display: none" name="annex" placeholder="导入" type="file" class="layui-input">
+                <button type="button" class="layui-btn" id="udfile" >
                     <i class="layui-icon">&#xe67c;</i>选择文件
                 </button>
             </div>
@@ -125,79 +160,96 @@
                 <button class="layui-btn layui-btn-lg " lay-filter="add" lay-submit="">确定</button>
             </div>
         </form>
-</div>
+    </div>
 </div>
 <script>
-    layui.use(['form', 'layer','upload'],
-    function() {
-        $ = layui.jquery;
-        var form = layui.form,
-            layer = layui.layer;
-             upload  = layui.upload;
-
-        // //自定义验证规则
-        // form.verify({
-        //     nikename: function(value) {
-        //         if (value.length < 5) {
-        //             return '昵称至少得5个字符啊';
-        //         }
-        //     },
-        //     pass: [/(.+){6,12}$/, '密码必须6到12位'],
-        //     repass: function(value) {
-        //         if ($('#L_pass').val() != $('#L_repass').val()) {
-        //             return '两次密码不一致';
-        //         }
-        //     }
-        // });
-        //文件上传
-        upload.render({
-            elem: '#test1' //绑定元素
-            ,url: '/user/import' //上传接口
-            ,data: {_token:1}
-            ,done: function(res){
-                //上传完毕回调
-                layer.alert("导入用户成功", {icon: 6},function(){
-                    xadmin.now_reload();
-                });
+    layui.use(['form', 'layer', 'upload'],
+        function () {
+            $ = layui.jquery;
+            var form = layui.form,
+                layer = layui.layer;
+                upload = layui.upload;
+                file_id = null
+            function getCookie(name) {
+                var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+                return r ? r[1] : undefined;
             }
-            ,accept:'file'
-            ,error: function(){
-                layer.msg('导入用户失败');
-            }
-        });
 
-        //监听提交
-        form.on('submit(add)',
-            function(data) {
-                console.log(data.field);
 
-                $.ajax({
-                method: "POST",
-                url: "/api/v1.0/resunme/add",
-                contentType: 'application/json',
-                data: JSON.stringify(data.field),
-                success: function (res) {
-                    console.log(res);
+            //文件上传
+            upload.render({
+                elem: '#udfile',  //绑定元素
+                accept: 'file',
+                url: '/api/v1.0/resume/uploadFiles', //上传接口
+                headers: {'X-CSRFToken': getCookie('csrf_token')},
+                // ,data: {_token:1}
+                done: function (res) {
+                    show = layer.msg('上传中，请稍候',{icon: 16,time:true,shade:0.8});
+                    console.log("res.errno1", res.errno);
                     if (res.errno == "0") {
-                        // layer.msg(res.errmsg, {icon: 5});
-                        layer.alert("添加简历成功", {
-                        icon: 6
-                    },
-                    function() {
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
-                    });
-                        location.href = '/index.html'
-                    } else {
-                        layer.msg(res.errmsg, {icon: 5})
-                    }
-                }});
-                return false;
+                        //上传完毕回调
+
+                        console.log("res.db", res.data.db);
+                        $file_id = res.data.db
+
+                        layer.close(show);
+                        layer.alert(res.errmsg, {time: 6000,icon: 6}, function () {
+                            // console.log("fileName",rId);
+                            xadmin.now_reload();
+                        });
+                    } else if ( res.errno == "4103"){
+                        // console.log("res.errno4", res.errno);
+                        layer.close(show);
+                        layer.msg('上传文件失败', {time: 6000,icon:5});
+                        }
+                },
+                error: function (res) {
+                    console.log("res.errno3", res.errno);
+                    layer.msg('上传文件失败', {time: 6000,icon:1});
+                    layer.alert('上传文件失败',{time: 6000,icon:1});
+                }
             });
 
-    });
+            //监听提交
+            form.on('submit(add)', function (data) {
+                    // console.log(data);
+                    data.field.file_id = $file_id
+                    var resume_data = data.field
+                    // console.log(data.field.file_id)
+                    // console.log("resume_data",resume_data);
+                    $.ajax({
+                        method: "POST",
+                        url: "/api/v1.0/resume/add",
+                        contentType: 'application/json',
+                        data: JSON.stringify(resume_data),
+                        success: function (res) {
+                            // console.log(res);
+                            if (res.errno == "0") {
+                                // layer.msg(res.errmsg, {icon: 5});
+                                layer.alert("添加简历成功", {time: 4000,icon: 6});
+                                // function () {
+                                //     // 获得frame索引
+                                //     var index = parent.layer.getFrameIndex(window.name);
+                                //     //关闭当前frame
+                                //     parent.layer.close(index);
+                                //     });
+                                // location.href = '/index.html'
+                                // //关闭当前frame
+                                xadmin.close();
+                                // // 可以对父窗口进行刷新
+                                xadmin.father_reload();
+
+                            } else {
+                                layer.alert(res.errmsg, {time: 4000,icon: 6});
+                                // layer.msg(res.errmsg, {icon: 5})
+                                return false;
+                            }
+                        }
+                    });
+
+                });
+
+        });
 
 </script>
 </body>
