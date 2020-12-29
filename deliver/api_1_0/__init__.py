@@ -4,7 +4,7 @@ from flask import Blueprint
 
 api = Blueprint('api', __name__)
 
-from . import demo, profile, cuer_core, resume
+from . import profile, cuer_core, resume
 
 
 @api.after_request
