@@ -22,45 +22,47 @@
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
+                <label for="project_name" class="layui-form-label">
                     <span class="x-red">*</span>需求名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="project_name" name="project_name" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
+                <label for="Job_type" class="layui-form-label">
                     <span class="x-red">*</span>岗位类型</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="Job_type" name="Job_type" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
+                <label for="job_name" class="layui-form-label">
                     <span class="x-red">*</span>岗位名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="job_name" name="job_name" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
             </div>
 
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>岗位级别</label>
+                <label for="level" class="layui-form-label">
+                    <span class="x-red">*</span>岗位级</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="usename" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="level" name="level" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
             </div>
-
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
+                <label for="other" class="layui-form-label">
+                    <span class="x-red">*</span>岗位别</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="other" name="other" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item">
+                <label for="hc" class="layui-form-label">
                     <span class="x-red">*</span>需求人数</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="hc" name="hc" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
             </div>
-
-
-
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
+                <label for="city" class="layui-form-label">
                     <span class="x-red">*</span>工作地点</label>
                 <div class="layui-input-inline">
-                    <select name="contrller">
+                    <select id="city" name="contrller">
                         <option value="0">上班区域</option>
                         <option value="1">深圳</option>
                         <option value="2">上海</option>
@@ -107,92 +109,119 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
+                <label for="office_site" class="layui-form-label">
                     <span class="x-red">*</span>办公大夏</label>
                 <div class="layui-input-inline">
-                    <select id="shipping" name="shipping" class="valid">
-                        <option value="1">腾讯</option>
-                        <option value="2">华为</option></select>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>面试官</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="addr" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
-            </div>
-            <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>面试地点
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="money" name="money" required="" lay-verify="required" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>学历要求</label>
-                <div class="layui-input-inline">
-                    <select id="shipping" name="shipping" class="valid">
-                        <option value="1">博士</option>
-                        <option value="2">硕士</option></select>
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>专业工作经验</label>
-                <div class="layui-input-inline">
-                    <select id="shipping" name="shipping" class="valid">
-                        <option value="1">10年</option>
-                        <option value="2">8年</option></select>
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>紧急程度</label>
-                <div class="layui-input-inline">
-                    <select name="contrller">
-                        <option value="1">加急</option>
-                        <option value="2">高</option>
-                        <option value="3">正常</option>
-                        <option value="3">暂缓</option>
-                        <option value="3">关闭</option>
+                    <select id="office_site" name="city" class="valid">
+                        <option value="1">松日鼎盛</option>
+                        <option value="2">腾讯大厦</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
+                <label for="hc_type" class="layui-form-label">
+                    <span class="x-red">*</span>HC类型</label>
+                <div class="layui-input-inline">
+                    <select id="hc_type" name="hc_type" class="valid">
+                        <option value="1">新增</option>
+                        <option value="2">替补</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="lead" class="layui-form-label">
+                    <span class="x-red">*</span>面试官</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="lead" name="lead" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+            </div>
+            <div class="layui-form-item">
+                <label for="audition_site" class="layui-form-label">
+                    <span class="x-red">*</span>面试地点
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="audition_site" name="audition_site" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="offer" class="layui-form-label">
+                    <span class="x-red">*</span>报价
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="offer" name="offer" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="education" class="layui-form-label">
+                    <span class="x-red">*</span>学历要求</label>
+                <div class="layui-input-inline">
+                    <select id="education" name="education" class="valid">
+                        <option value="1">本科</option>
+                        <option value="2">大专</option>
+                        <option value="3">大专以下</option>
+                        <option value="4">本科以上</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="exp" class="layui-form-label">
+                    <span class="x-red">*</span>工作经验</label>
+                <div class="layui-input-inline">
+                    <select id="exp" name="exp" class="valid">
+                        <option value="1">1年内</option>
+                        <option value="2">1-2年</option>
+                        <option value="2">2-3年</option>
+                        <option value="2">3-4年</option>
+                        <option value="2">4-5年</option>
+                        <option value="2">5年以上</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="urgent_level" class="layui-form-label">
+                    <span class="x-red">*</span>紧急程度</label>
+                <div class="layui-input-inline">
+                    <select id="urgent_level" name="urgent_level">
+                        <option value="1">加急</option>
+                        <option value="2">高</option>
+                        <option value="3">正常</option>
+                        <option value="3">暂缓</option>
+<!--                        <option value="3">关闭</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="entry_time" class="layui-form-label">
                     <span class="x-red">*</span>期望到岗时间
                 </label>
                 <div class="layui-input-inline">
-                    <input class="layui-input"  autocomplete="off" placeholder="到岗时间" name="start" id="start">
+                    <input class="layui-input"  autocomplete="off" placeholder="到岗时间" name="entry_time" id="entry_time">
                 </div>
             </div>
 
             <div class="layui-form-item layui-form-text">
-                <label for="desc" class="layui-form-label">
+                <label for="job_feature" class="layui-form-label">
                     <span class="x-red">*</span>岗位要求
                 </label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入内容" id="job_feature" name="desc" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
+                <label for="job_duty" class="layui-form-label">
                     <span class="x-red">*</span>岗位职责
                 </label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入内容" id="job_duty" name="job_duty" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
+                <label for="info" class="layui-form-label">
                     <span class="x-red">*</span>备注
                 </label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入内容" id="info" name="info" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -215,52 +244,32 @@
             elem: '#start' //指定元素
         });
 
-        //自定义验证规则
-        form.verify({
-            nikename: function(value) {
-                if (value.length < 5) {
-                    return '昵称至少得5个字符啊';
-                }
-            },
-            pass: [/(.+){6,12}$/, '密码必须6到12位'],
-            repass: function(value) {
-                if ($('#L_pass').val() != $('#L_repass').val()) {
-                    return '两次密码不一致';
-                }
-            }
-        });
-        //文件上传
-        upload.render({
-            elem: '#test1' //绑定元素
-            ,url: '/user/import' //上传接口
-            ,data: {_token:1}
-            ,done: function(res){
-                //上传完毕回调
-                layer.alert("导入用户成功", {icon: 6},function(){
-                    xadmin.now_reload();
-                });
-            }
-            ,accept:'file'
-            ,error: function(){
-                layer.msg('导入用户失败');
-            }
-        });
-
         //监听提交
         form.on('submit(add)',
             function(data) {
-                console.log(data);
-                //发异步，把数据提交给php
-                layer.alert("增加成功", {
-                        icon: 6
-                    },
-                    function() {
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
+                var resume_data = data.field
+
+                $.ajax({
+                        method: "POST",
+                        url: "/api/v1.0/project/add",
+                        contentType: 'application/json',
+                        data: JSON.stringify(resume_data),
+                        success: function (res) {
+                            // console.log(res);
+                            if (res.errno == "0") {
+                                // layer.msg(res.errmsg, {icon: 5});
+                                layer.alert("添加需求成功", {time: 4000,icon: 6});
+                                // //关闭当前frame
+                                xadmin.close();
+                                // // 可以对父窗口进行刷新
+                                xadmin.father_reload();
+
+                            } else {
+                                layer.alert(res.errmsg, {time: 4000,icon: 6});
+                                return false;
+                            }
+                        }
                     });
-                return false;
             });
 
     });</script>
