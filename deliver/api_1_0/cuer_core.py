@@ -18,12 +18,16 @@ from deliver.utils.response_code import RET
 from deliver.models import Role, User, Auth
 # 导入数据库实例
 from deliver import db
+# 导入登陆验证码装饰器
+from deliver.utils.commons import login_required
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 
+
 # 添加用户
 @api.route('/user/add', methods=['POST'])
+@login_required
 def user_add():
     """
     创建新用户
@@ -107,8 +111,10 @@ def user_add():
     # 返回结果
     return jsonify(errno=RET.OK, errmsg='新增用户成功')
 
+
 # 添加角色
 @api.route('/role/add', methods=['POST'])
+@login_required
 def role_add():
     """
     创建新角色
@@ -173,8 +179,10 @@ def role_add():
     # 返回结果
     return jsonify(errno=RET.OK, errmsg='新增角色成功')
 
+
 # 删除角色
 @api.route('/role/del', methods=['POST'])
+@login_required
 def role_del():
     """
     删除角色
@@ -195,8 +203,10 @@ def role_del():
     # 返回结果
     return jsonify(errno=RET.OK, errmsg='删除角色成功')
 
+
 # 角色列表
 @api.route('/role/list/<int:page>', methods=['GET'])
+@login_required
 def role_list(page=None):
     """
     删除角色
@@ -220,8 +230,10 @@ def role_list(page=None):
     # 返回结果
     return jsonify(errno=RET.OK, errmsg='成功', data=data)
 
+
 # 角色编辑
 @api.route('/role/edit', methods=['POST'])
+@login_required
 def role_edit():
     """
     删除角色
@@ -242,8 +254,10 @@ def role_edit():
     # 返回结果
     return jsonify(errno=RET.OK, errmsg='删除角色成功')
 
+
 # 添加权限
 @api.route('/auth/add', methods=['POST'])
+@login_required
 def auth_add():
     """
     创建新权限
@@ -298,8 +312,10 @@ def auth_add():
     # 返回结果
     return jsonify(errno=RET.OK, errmsg='新增权限成功')
 
+
 # 权限列表
 @api.route('/auth/list/<int:page>', methods=['GET'])
+@login_required
 def auth_list(page=None):
     """
     查询权限列表
@@ -321,8 +337,10 @@ def auth_list(page=None):
     # 返回结果
     return jsonify(errno=RET.OK, errmsg='成功', data=data)
 
+
 # 权限删除
 @api.route('/auth/del', methods=['POST'])
+@login_required
 def auth_del():
     """
     权限删除
@@ -340,8 +358,10 @@ def auth_del():
 
     pass
 
+
 # 权限编辑
 @api.route('/auth/edit', methods=['POST'])
+@login_required
 def auth_edit():
     """
     权限编辑
