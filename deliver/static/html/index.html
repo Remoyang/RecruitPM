@@ -61,7 +61,7 @@
                         <!-- 二级菜单 -->
                         <dd>
 <!--                            pass-->
-                            <a onclick="xadmin.open('个人信息','./static/html/index.html')">个人信息</a></dd>
+                            <a onclick="xadmin.open('个人信息','/static/html/index.html')">个人信息</a></dd>
 <!--                        <dd>-->
 <!--                            <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>-->
                         <dd>
@@ -87,7 +87,7 @@
                         <ul class="sub-menu">
 
                             <li>
-                                <a onclick="xadmin.add_tab('简历列表','简历列表.html')">
+                                <a onclick="xadmin.add_tab('简历列表','resume_list.html')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>简历列表</cite></a>
                             </li>
@@ -100,7 +100,7 @@
                             <i class="iconfont nav_right"></i></a>
                         <ul class="sub-menu" style="">
                             <li>
-                                <a onclick="xadmin.add_tab('需求列表','需求列表.html')">
+                                <a onclick="xadmin.add_tab('需求列表','project_list.html')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>需求列表</cite></a>
                             </li>
@@ -136,7 +136,7 @@
                             <i class="iconfont nav_right"></i></a>
                         <ul class="sub-menu" style="">
                             <li>
-                                <a onclick="xadmin.add_tab('数据分析','/static/html/sla数据报表.html')">
+                                <a onclick="xadmin.add_tab('sla数据分析','/static/html/sla_data.html')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>数据分析</cite></a>
                             </li>
@@ -161,7 +161,7 @@
                 </div>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe src='static/html/首页.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                        <iframe src='static/html/deliver.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
                     </div>
                 </div>
                 <div id="tab_show"></div>
@@ -182,7 +182,7 @@
                     $(".top-bar>.user-info>.user-name").html(resp.data.name);
                     $(".top-bar.user-info").show();
                 } else {
-                    $(".top-bar>.register-login").show();
+                    window.location.href="/static/html/login.html"
                 }
             }, "json");
         });

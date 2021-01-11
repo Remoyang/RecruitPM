@@ -95,7 +95,7 @@
 <!--                                  <tr>-->
 <!--&lt;!&ndash;                                    <td>1</td>&ndash;&gt;-->
 <!--                                    <td>-->
-<!--                                        <a href="./简历详情.html?id=1">-->
+<!--                                        <a href="./resume_show.html?id=1">-->
 <!--                                            <cite class="layui-btn">张三</cite>-->
 <!--                                        </a>-->
 <!--                                    </td>-->
@@ -215,14 +215,13 @@
                              $('.resume_list').append(
                                  '<tbody><tr>'
                                  +'<td></td>'
-                                 +'<td><a href="./简历详情.html?id='+ result.id +'"<cite class="'+'layui-btn">'+ result.name +' </cite></a></td>'
+                                 +'<td><a href="./resume_show.html?id='+ result.id +'"<cite class="'+'layui-btn">'+ result.name +' </cite></a></td>'
                                  +'<td>'+'</td>'
                                  +'<td>'+result.state+'</td>'
                                  +'<td>'+'</td>'
                                  +'<td>'+'</td>'
                                  +'<td class="td-manage">'
-                                 +'<button class="layui-btn layui-btn layui-btn-xs"  onclick="xadmin.open("编辑","resume-edit.html")" ><i class="layui-icon">&#xe642;</i>编辑</button>'
-                                 +'<button class="layui-btn-danger layui-btn layui-btn-xs"  onclick="member_del(this,"要删除的id")" href="javascript:;" ><i class="layui-icon">&#xe640;</i>删除</button>'
+                                 +'<button class="layui-btn layui-btn layui-btn-xs"  onclick="xadmin.open("推荐简历","resume-edit.html")" ><i class="layui-icon">&#xe642;</i>推荐简历</button>'
                                  +'</td></tr></tbody>'
                                  // + '<td>'+result.auth_name+'</td>'
                              );
