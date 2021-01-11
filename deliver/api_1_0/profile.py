@@ -35,7 +35,7 @@ def login():
     """
     # 获取参数，mobile,password,args,data,form,method,url,
     user_data = request.get_json()
-    print "user_data", user_data
+
     # 校验参数存在
     if not user_data:
         return jsonify(errno=RET.PARAMERR, errmsg='参数错误')
