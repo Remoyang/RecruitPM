@@ -134,10 +134,10 @@ class Auth(BaseModel, db.Model):
     auth_name = db.Column(db.String(100), unique=True)  # 权限名称
     url = db.Column(db.String(255), unique=True)  # 路由
 
-    def __init__(self, auth_name, url):
-
-        self.auth_name = auth_name
-        self.url = url
+    # def __init__(self, auth_name, url):
+    #
+    #     self.auth_name = auth_name
+    #     self.url = url
 
     def __repr__(self):
 
@@ -238,6 +238,20 @@ class ProjectJoinResume(BaseModel, db.Model):
     adopt_time = db.Column(db.DateTime)  # 面试通过时间
     resumelog = db.Column(db.Integer, db.ForeignKey("resume_log.id"), nullable=False)  # 流水日志ID
 
+    def ProjectJoinResume_to_dicr(self):
+
+        ProjectJoinResume_dicr = {
+            "id": self.id,
+            "resume_id": self.resume_id,
+            "project_id": self.project_id,
+            "project_name": self.project_name,
+            "push_time": self.push_time,
+            "adopt_time": self.adopt_time,
+            "resumelog": self.resumelog
+        }
+
+        return ProjectJoinResume_dicr
+
 
 class ResumeLog(BaseModel, db.Model):
     """简历日志流水表"""
@@ -247,6 +261,16 @@ class ResumeLog(BaseModel, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     project_join = db.relationship("ProjectJoinResume", backref='resume_log')  # 需求关联表
     info = db.Column(db.TEXT)  # 日志信息
+
+    def resumelog_to_dice(self):
+
+        resumelog_dict = {
+            "id": self.id,
+            "project_join": self.project_join,
+            "info": self.info
+        }
+
+        return resumelog_dict
 
 
 class Project(BaseModel, db.Model):
@@ -269,12 +293,38 @@ class Project(BaseModel, db.Model):
     hc = db.Column(db.Integer, nullable=False)  # hc
     project_name = db.Column(db.String(32), nullable=False)  # 项目名称
     job_feature = db.Column(db.TEXT, nullable=False)  # JD
-    job_Duty = db.Column(db.TEXT, nullable=False)  # 工作职责
+    job_duty = db.Column(db.TEXT, nullable=False)  # 工作职责
     city = db.Column(db.String(32), nullable=False)  # 城市
     office_site = db.Column(db.String(32))  # 办公地点
     hc_type = db.Column(db.String(32), nullable=False)  # hc类型
     urgent_level = db.Column(db.String(32), nullable=False)  # 紧急程度
     info = db.Column(db.TEXT)   # 备注
+
+    def project_to_dict(self):
+        project_dict = {
+            "project_id": self.project_id,
+            "job_name": self.job_name,
+            "Job_type": self.Job_type,
+            "level": self.level,
+            "other": self.other,
+            "lead": self.lead,
+            "audition_site": self.audition_site,
+            "education": self.education,
+            "exp": self.exp,
+            "entry_time": self.entry_time,
+            "offer": self.offer,
+            "hc": self.hc,
+            "project_name": self.project_name,
+            "job_feature": self.job_feature,
+            "job_duty": self.job_duty,
+            "city": self.city,
+            "office_site": self.office_site,
+            "hc_type": self.hc_type,
+            "urgent_level": self.urgent_level,
+            "info": self.info
+        }
+
+        return project_dict
 
 
 # if __name__ == '__main__':
