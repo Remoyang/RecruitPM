@@ -4,8 +4,6 @@
 公共事物处理中心
 
 """
-# 导入正则,实现手机号格式校验
-import re
 # 导入蓝图
 from . import api
 # 导入flask内置的方法
