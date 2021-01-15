@@ -74,7 +74,7 @@
                             </form>
                         </div>
                         <div class="layui-card-header">
-                            <button class="layui-btn" onclick="xadmin.open('添加简历','./简历添加.html',800,800)"><i class="layui-icon"></i>添加简历</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加简历','./resume_add.html',800,800)"><i class="layui-icon"></i>添加简历</button>
                         </div>
 
                         <div class="layui-card-body layui-table-body layui-table-main">
@@ -205,12 +205,12 @@
     $(document).ready(function () {
                 $.get("/api/v1.0/resume/list/1", function (resp) {
                     var $data = resp.data;
-                    console.log(resp.data[0].name);
+                    // console.log(resp.data[0].name);
 
                     for(var index = 0; index < $data.length; index++){
                         {
                             result = $data[index];
-                            console.log("result" + result.state);
+                            // console.log("result" + result.state);
                              // console.log('for ok');
                              $('.resume_list').append(
                                  '<tbody><tr>'
@@ -221,8 +221,8 @@
                                  +'<td>'+'</td>'
                                  +'<td>'+'</td>'
                                  +'<td class="td-manage">'
-                                 +'<button class="layui-btn layui-btn layui-btn-xs"  onclick="xadmin.open("推荐简历","resume-edit.html")" ><i class="layui-icon">&#xe642;</i>推荐简历</button>'
-                                 +'</td></tr></tbody>'
+                                 +'<button class="layui-btn layui-btn layui-btn-normal"  onclick="xadmin.open(\'推荐简历\',\'./recommend.html\')"><i class='+'"layui-icon'+'">&#xe642;</i>推荐简历</button>'
+                                  +'</td></tr></tbody>'
                                  // + '<td>'+result.auth_name+'</td>'
                              );
                         }

@@ -28,7 +28,7 @@
         }
 
         a {
-            color: blue
+            color: #0000ff
         }
     </style>
 </head>
@@ -106,50 +106,52 @@
 </body>
 <script src="/static/js/jquery.min.js"></script>
 <script src="/static/js/template.js"></script>
+
 <script id="resume-detail-tmpl" type="text/html">
-                    <table class="layui-table resume-table" id="resume-table">
-                        <tbody>
-                        <tr>
-                            <th>姓名：{{name}}</th>
-                            <td>性别：{{sex}}</td>
-                        </tr>
-                        <tr>
-                            <th>年龄：{{age}}</th>
-                            <td>身份证号码：{{uuid}}</td>
-                        </tr>
-                        <tr>
-                            <th>工作年限：{{exp}}</th>
-                            <td>最高学历：{{education}}</td>
-                        </tr>
-                        <tr>
-                            <th>手机：{{phone}}</th>
-                            <td>邮箱：{{email}}</td>
-                        </tr>
-                        <tr>
-                            <td>期望薪资：{{wish_money}}</td>
-                        </tr>
-                        <tr>
-                            <td>自我评价: </td>
-                            <td> {{self_evaluation}}</td>
-                        </tr>
-                        <tr>
-                            <td>工作经验: </td>
-                            <td>{{job_exp}}</td>
-                        </tr>
-                        <tr>
-                            <td>项目经验: </td>
-                            <td>{{recruit_exp}}</td>
-                        </tr>
-                        <tr>
-                            <td>推荐评语: </td>
-                             <td>{{evaluate}}</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2">附件下载：<a href={{ file_url }}>{{ fileName }}</a></th>
-                        </tr>
-                        </tbody>
-                    </table>
-                </script>
+    <table class="layui-table resume-table" id="resume-table">
+        <tbody>
+        <tr>
+            <th>姓名：{{name}}</th>
+            <td>性别：{{sex}}</td>
+        </tr>
+        <tr>
+            <th>年龄：{{age}}</th>
+            <td>身份证号码：{{uuid}}</td>
+        </tr>
+        <tr>
+            <th>工作年限：{{exp}}</th>
+            <td>最高学历：{{education}}</td>
+        </tr>
+        <tr>
+            <th>手机：{{phone}}</th>
+            <td>邮箱：{{email}}</td>
+        </tr>
+        <tr>
+            <td>期望薪资：{{wish_money}}</td>
+        </tr>
+        <tr>
+            <td>自我评价:</td>
+            <td> {{self_evaluation}}</td>
+        </tr>
+        <tr>
+            <td>工作经验:</td>
+            <td>{{job_exp}}</td>
+        </tr>
+        <tr>
+            <td>项目经验:</td>
+            <td>{{recruit_exp}}</td>
+        </tr>
+        <tr>
+            <td>推荐评语:</td>
+            <td>{{evaluate}}</td>
+        </tr>
+        <tr>
+            <th colspan="2">附件下载：<a href={{ file_url }}>{{ fileName }}</a></th>
+        </tr>
+        </tbody>
+    </table>
+</script>
+
 <script>
 
     $(document).ready(function () {
@@ -162,7 +164,7 @@
             // alert(resp.data[0].auth_name);
             if (resp.errno == '0') {
                 var data = resp.data;
-                console.log("data", data);
+                // console.log("data", data);
                 $(".resume-book").html(template("resume-detail-tmpl", data));
             }
         });

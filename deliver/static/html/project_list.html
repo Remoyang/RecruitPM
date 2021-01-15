@@ -52,8 +52,8 @@
                                                 <option value="1">加急</option>
                                                 <option value="2">高</option>
                                                 <option value="3">正常</option>
-                                                <option value="3">暂缓</option>
-                                                <option value="3">关闭</option>
+                                                <option value="4">暂缓</option>
+                                                <option value="5">关闭</option>
                                             </select>
                                         </div>
                                         <div class="layui-input-inline layui-show-xs-block">
@@ -113,7 +113,7 @@
                                             <select name="contrller">
                                                 <option value="0">状态</option>
                                                 <option value="1">招聘中</option>
-                                                <option value="2">已结束</option>
+                                                <option value="2">已关闭</option>
                                             </select>
                                         </div>
                                         <div class="layui-inline layui-show-xs-block">
@@ -125,13 +125,13 @@
                                 </div>
                                 <div class="layui-card-header">
                                     <button class="layui-btn layui-btn-warm" onclick="download('/user/export')">导出</button>
-                                    <button class="layui-btn" onclick="xadmin.open('创建需求','./需求添加.html',800,800)"><i class="layui-icon"></i>创建需求</button>
+                                    <button class="layui-btn" onclick="xadmin.open('创建需求','./project_add.html',800,800)"><i class="layui-icon"></i>创建需求</button>
                                 </div>
-                                <div class="layui-card-body ">
-                                    <table class="layui-table layui-form">
+                                <div class="layui-card-body project-book">
+                                    <table class="layui-table layui-form  project-table">
                                         <thead>
                                         <tr>
-                                            <th>ID</th>
+<!--                                            <th>ID</th>-->
                                             <th>需求单号</th>
                                             <th>岗位名称</th>
                                             <th>岗位类型</th>
@@ -144,28 +144,28 @@
                                             <th>状态</th>
                                             <th>操作</th>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td><a href="project_show.html">1</a></td>
-                                            <td>18925139194</td>
-                                            <td>测试</td>
-                                            <td>市场</td>
-                                            <td>高</td>
-                                            <td>2017-01-01</td>
-                                            <td>张三</td>
-                                            <td>腾讯大厦</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td class="td-status">
-                                                招聘中
-                                            </td>
-                                            <td class="td-manage">
-                                                <a title="推荐简历"  onclick="xadmin.open('编辑','./recommend.html')" href="javascript:;">
-                                                    <span class="layui-btn layui-btn-normal layui-btn-mini">推荐简历</span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
+<!--                                        <tbody>-->
+<!--                                        <tr>-->
+<!--&lt;!&ndash;                                            <td><a href="project_show.html">1</a></td>&ndash;&gt;-->
+<!--                                            <td>18925139194</td>-->
+<!--                                            <td>测试</td>-->
+<!--                                            <td>市场</td>-->
+<!--                                            <td>高</td>-->
+<!--                                            <td>2017-01-01</td>-->
+<!--                                            <td>张三</td>-->
+<!--                                            <td>腾讯大厦</td>-->
+<!--                                            <td>1</td>-->
+<!--                                            <td>2</td>-->
+<!--                                            <td class="td-status">-->
+<!--                                                招聘中-->
+<!--                                            </td>-->
+<!--                                            <td class="td-manage">-->
+<!--                                                <a title="推荐简历"  onclick="xadmin.open('编辑','./recommend.html')" href="javascript:;">-->
+<!--                                                    <span class="layui-btn layui-btn-normal layui-btn-mini">推荐简历</span>-->
+<!--                                                </a>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        </tbody>-->
                                     </table>
                                 </div>
                                 <div class="layui-card-body ">
@@ -187,7 +187,81 @@
             </div>
         </div> 
     </body>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/template.js"></script>
+
+<!--    <script id="project-detail-tmpl" type="text/html">-->
+<!--            <tbody class="layui-table project-list" id="project-list">-->
+<!--            <tr>-->
+<!--        &lt;!&ndash;            <td><a href="project_show.html">1</a></td>&ndash;&gt;-->
+<!--                <td> <a class="layui-btn-warm" href="project_show.html?pid=" $pid> {{ item.project_id }}</a></td>-->
+<!--                <td>#{item.job_name}</td>-->
+<!--                <td>#{item.Job_type}</td>-->
+<!--                <td>#{item.urgent_level}</td>-->
+<!--                <td>#{item.create_time}</td>-->
+<!--                <td>#{item.lead}</td>-->
+<!--                <td>#{item.audition_site}</td>-->
+<!--                <td></td>-->
+<!--                <td>#{item.hc}</td>-->
+<!--                <td class="td-status">-->
+<!--                    #{item.state}-->
+<!--                </td>-->
+<!--                <td class="td-manage">-->
+<!--                    <a title="推荐简历" onClick="xadmin.open('推荐简历','./recommend.html')" href="javascript:;">-->
+<!--                        <span class="layui-btn layui-btn-normal layui-btn-mini">推荐简历</span>-->
+<!--                    </a>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--    </script>-->
+
     <script>
+
+        $(document).ready(function () {
+        // 获取详情页面要展示的简历编号
+        // var queryData = decodeQuery();
+        // var rId = queryData['id'];
+
+        // 获取该简历的详细信息
+        $.get("/api/v1.0/project/list/1", function (resp) {
+            // alert(resp.data[0].auth_name);
+            if (resp.errno == '0') {
+                var data = resp.data;
+                // console.log("data", data);
+                //方式一:嵌套渲染模板
+                // $(".project-table").html(template("project-detail-tmpl", data));
+
+                // 方式二：直接渲染
+                for(var index = 0; index < data.length; index++){
+                    {
+                        result = data[index];
+                        $('.project-table').append(
+                            '<tbody><tr>'+
+                            '<td> <a href="./project_show.html?pid='+ result.id + '"> <span class="layui-btn" >'+ result.project_id + '</span></a></td>'+
+                            '<td>' + result.job_name + '</td>'+
+                            '<td>' + result.Job_type + '</td>'+
+                            '<td>' + result.urgent_level + '</td>'+
+                            '<td>' + result.create_time + '</td>'+
+                            '<td>' + result.lead + '</td>'+
+                            '<td>' + result.audition_site + '</td>'+
+                            '<td>' + result.pushnum + '</td>'+
+                            '<td>' + result.hc + '</td>'+
+                            '<td class="td-status">'+ result.state + '</td>'+
+                            '<td class="td-manage">' +
+                                '<button class="layui-btn layui-btn layui-btn-normal"  onclick="xadmin.open(\'推荐简历\',\'./recommend.html\')">推荐简历</button> </td>'+
+                            // '<td className="td-manage">'+
+                            //     '<a title="推荐简历" onClick="xadmin.open('+'"编辑"'+','+'"./recommend.html"'+')'+'" href="javascript:;">'+
+                            //         '<span className="layui-btn layui-btn-normal layui-btn-mini">推荐简历</span>'+
+                            //     '</a>'+
+                            // '</td>'+
+                            '</td></tr></tbody>'
+                            )
+                    }}
+            }
+        });
+    });
+
+
       layui.use(['laydate','form'], function(){
         var laydate = layui.laydate;
         var  form = layui.form;

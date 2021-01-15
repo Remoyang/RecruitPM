@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="stylesheet" href="/static/css/font.css">
     <link rel="stylesheet" href="/static/css/xadmin.css">
+    <link rel="stylesheet" href="/static/css/tab.css">
     <script type="text/javascript" src="/static/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/static/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -34,48 +35,8 @@
             </ul>
         </div>
         <div class="layui-card-header">需求信息</div>
-        <div class="layui-card-body ">
-                <table class="layui-table" id="layui-table" >
-                <tbody >
-                <tr>
-                    <th>需求名称：张三</th>
-                    <td>岗位类型：市场</td>
-                </tr>
-                <tr >
-                    <th>岗位名称：PHP</th>
-                    <td>岗位级别：P1</td>
-                </tr>
-                <tr >
-                    <th>工作地点：深圳</th>
-                    <td>办公大厦：腾讯</td>
-                </tr>
-                <tr>
-                    <th>面试官：张三</th>
-                    <td>面试地点：科技园</td>
-                </tr>
-                <tr>
-                    <th>学历要求：本科</th>
-                    <td>专业工作经验：10年</td>
-                </tr>
-                <tr>
-                    <th>需求人数: 10人</th>
-                    <td>紧急程度：高</td>
-                </tr>
-                <tr>
-                    <th>期望到岗时间: 2020年10月1号</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td  colspan="2" >岗位要求: 该同事工作认真负责，爱岗敬业，服从整体安排，形象良好;对本职工作兢兢业业，锐意进取，乐于助人，关心同事，与同事相处融洽，善于合作，起带头作用，专业技能业务水平优秀，为公司创造好的企业效益。</td>
-                </tr>
-                <tr>
-                    <td  colspan="2" >岗位职责: 该同事工作认真负责，爱岗敬业，服从整体安排，形象良好;对本职工作兢兢业业，锐意进取，乐于助人，关心同事，与同事相处融洽，善于合作，起带头作用，专业技能业务水平优秀，为公司创造好的企业效益。</td>
-                </tr>
-                <tr>
-                    <td  colspan="2" >备注: 该同事工作认真负责，爱岗敬业，服从整体安排，形象良好;对本职工作兢兢业业，锐意进取，乐于助人，关心同事，与同事相处融洽，善于合作，起带头作用，专业技能业务水平优秀，为公司创造好的企业效益。</td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="layui-card-body project-book">
+
         </div>
         <div class="layui-card-header">需求操作流水</div>
         <div class="layui-card-body ">
@@ -118,8 +79,8 @@
             </ul>
         </div>
         <div class="layui-card-body ">
-            <button class="layui-btn" onclick="xadmin.open('创建需求','./需求添加.html',800,800)"><i class="layui-icon"></i>创建需求</button>
-            <button class="layui-btn" onclick="xadmin.open('编辑简历','./需求添加.html',800,800)"><i class="layui-icon">&#xe642;</i>编辑简历</button>
+<!--            <button class="layui-btn" onclick="xadmin.open('创建需求','./需求添加.html',800,800)"><i class="layui-icon"></i>创建需求</button>-->
+            <button class="layui-btn" onclick="xadmin.open('编辑需求','./project_edit.html',800,800)"><i class="layui-icon">&#xe642;</i>编辑需求</button>
             <button class="layui-btn" onclick="xadmin.open('推荐简历','./recommend.html',800,800)">推荐简历</button>
         </div>
         <div style="height: 30px;"></div>
@@ -130,6 +91,84 @@
     <blockquote class="layui-elem-quote layui-quote-nm">CSIG交付系统</blockquote></div>
 </div>
 </body>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/template.js"></script>
+
+<script id="project-detail-tmpl" type="text/html">
+    <table class="layui-table" id="layui-table" >
+                <tbody >
+                <tr>
+                    <th>需求名称：{{ job_name }}</th>
+                    <td>岗位类型：{{ Job_type }}</td>
+                </tr>
+                <tr >
+                    <th>岗位名称：{{ level }}</th>
+                    <td>岗位级别：{{ other }}</td>
+                </tr>
+                <tr >
+                    <th>工作地点：{{ city }}</th>
+                    <td>办公大厦：{{ office_site }}</td>
+                </tr>
+                <tr>
+                    <th>面试官：{{ lead }}</th>
+                    <td>面试地点：{{ audition_site }}</td>
+                </tr>
+                <tr>
+                    <th>学历要求：{{ education }}</th>
+                    <td>专业工作经验：{{ exp }}</td>
+                </tr>
+                <tr>
+                    <th>需求人数:{{ hc }}</th>
+                    <td>紧急程度：{{ urgent_level }}</td>
+                </tr>
+                <tr>
+                    <th>期望到岗时间: {{ entry_time }}</th>
+                    <td>岗位类型： {{ hc_type }}</td>
+                </tr>
+                <tr>
+                    <th>报价: {{ offer }}</th>
+                </tr>
+                <tr>
+                    <td class="content" colspan="2" >岗位要求: {{ job_feature }}</td>
+                </tr>
+                <tr>
+                    <td class="content" colspan="2" >岗位职责: {{ job_duty }}</td>
+                </tr>
+                <tr>
+                    <td class="content" colspan="2" >备注: {{ info }}</td>
+                </tr>
+                </tbody>
+            </table>
+</script>
+
+<script>
+    $(document).ready(function () {
+        // 获取详情页面要展示的简历编号
+        var queryData = decodeQuery();
+        var pId = queryData['pid'];
+        // 获取该简历的详细信息
+        $.get("/api/v1.0/project/show/" + pId, function (resp) {
+        // alert(resp.data[0].auth_name);
+        if (resp.errno == '0') {
+            var data = resp.data;
+            console.log("data", data);
+            $(".project-book").html(template("project-detail-tmpl", data));
+        }
+    });
+});
+
+    /* 获取url参数 */
+    function decodeQuery() {
+        var search = decodeURI(document.location.search);
+        return search.replace(/(^\?)/, '').split('&').reduce(function (result, item) {
+            values = item.split('=');
+            result[values[0]] = values[1];
+            return result;
+        }, {});
+    }
+
+</script>
+
 <script>
     /*删除*/
     function member_del(obj,id){

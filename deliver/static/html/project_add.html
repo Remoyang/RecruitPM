@@ -62,49 +62,49 @@
                 <label for="city" class="layui-form-label">
                     <span class="x-red">*</span>工作地点</label>
                 <div class="layui-input-inline">
-                    <select id="city" name="contrller">
-                        <option value="0">上班区域</option>
-                        <option value="1">深圳</option>
-                        <option value="2">上海</option>
-                        <option value="3">北京</option>
-                        <option value="3">广州</option>
-                        <option value="3">成都</option>
-                        <option value="3">合肥</option>
-                        <option value="3">杭州</option>
-                        <option value="3">昆明</option>
-                        <option value="3">武汉</option>
-                        <option value="3">大连</option>
-                        <option value="3">长春</option>
-                        <option value="3">南京</option>
-                        <option value="3">天津</option>
-                        <option value="3">西安</option>
-                        <option value="3">重庆</option>
-                        <option value="3">青岛</option>
-                        <option value="3">沈阳</option>
-                        <option value="3">长沙</option>
-                        <option value="3">厦门</option>
-                        <option value="3">无锡</option>
-                        <option value="3">福州</option>
-                        <option value="3">济南</option>
-                        <option value="3">苏州</option>
-                        <option value="3">宁波</option>
-                        <option value="3">太原</option>
-                        <option value="3">扬州</option>
-                        <option value="3">南宁</option>
-                        <option value="3">桂林</option>
-                        <option value="3">兰州</option>
-                        <option value="3">呼和浩特</option>
-                        <option value="3">哈尔滨</option>
-                        <option value="3">珠海</option>
-                        <option value="3">贵阳</option>
-                        <option value="3">佛山</option>
-                        <option value="3">郑州</option>
-                        <option value="3">南昌</option>
-                        <option value="3">烟台</option>
-                        <option value="3">石家庄</option>
-                        <option value="3">南通</option>
-                        <option value="3">海口</option>
-                        <option value="3">二三线城市及其他</option>
+                    <select id="city" name="city">
+                        <option value=""> </option>
+                        <option value="深圳">深圳</option>
+                        <option value="上海">上海</option>
+                        <option value="北京">北京</option>
+                        <option value="广州">广州</option>
+                        <option value="成都">成都</option>
+                        <option value="合肥">合肥</option>
+                        <option value="杭州">杭州</option>
+                        <option value="昆明">昆明</option>
+                        <option value="武汉">武汉</option>
+                        <option value="大连">大连</option>
+                        <option value="长春">长春</option>
+                        <option value="南京">南京</option>
+                        <option value="天津">天津</option>
+                        <option value="西安">西安</option>
+                        <option value="重庆">重庆</option>
+                        <option value="青岛">青岛</option>
+                        <option value="沈阳">沈阳</option>
+                        <option value="长沙">长沙</option>
+                        <option value="厦门">厦门</option>
+                        <option value="无锡">无锡</option>
+                        <option value="福州">福州</option>
+                        <option value="济南">济南</option>
+                        <option value="苏州">苏州</option>
+                        <option value="宁波">宁波</option>
+                        <option value="太原">太原</option>
+                        <option value="扬州">扬州</option>
+                        <option value="南宁">南宁</option>
+                        <option value="桂林">桂林</option>
+                        <option value="兰州">兰州</option>
+                        <option value="呼和浩特">呼和浩特</option>
+                        <option value="哈尔滨">哈尔滨</option>
+                        <option value="珠海">珠海</option>
+                        <option value="贵阳">贵阳</option>
+                        <option value="佛山">佛山</option>
+                        <option value="郑州">郑州</option>
+                        <option value="南昌">南昌</option>
+                        <option value="烟台">烟台</option>
+                        <option value="石家庄">石家庄</option>
+                        <option value="南通">南通</option>
+                        <option value="海口">海口</option>
+                        <option value="二三线城市及其他">二三线城市及其他</option>
                     </select>
                 </div>
             </div>
@@ -112,9 +112,10 @@
                 <label for="office_site" class="layui-form-label">
                     <span class="x-red">*</span>办公大夏</label>
                 <div class="layui-input-inline">
-                    <select id="office_site" name="city" class="valid">
-                        <option value="1">松日鼎盛</option>
-                        <option value="2">腾讯大厦</option>
+                    <select id="office_site" name="office_site" class="valid">
+                         <option value=" "> </option>
+                        <option value="松日鼎盛">松日鼎盛</option>
+                        <option value="腾讯大厦">腾讯大厦</option>
                     </select>
                 </div>
             </div>
@@ -123,8 +124,8 @@
                     <span class="x-red">*</span>HC类型</label>
                 <div class="layui-input-inline">
                     <select id="hc_type" name="hc_type" class="valid">
-                        <option value="1">新增</option>
-                        <option value="2">替补</option>
+                        <option value="新增">新增</option>
+                        <option value="替补">替补</option>
                     </select>
                 </div>
             </div>
@@ -155,10 +156,11 @@
                     <span class="x-red">*</span>学历要求</label>
                 <div class="layui-input-inline">
                     <select id="education" name="education" class="valid">
-                        <option value="1">本科</option>
-                        <option value="2">大专</option>
-                        <option value="3">大专以下</option>
-                        <option value="4">本科以上</option>
+                        <option value=" "> </option>
+                        <option value="本科">本科</option>
+                        <option value="大专">大专</option>
+                        <option value="大专以下">大专以下</option>
+                        <option value="本科以上">本科以上</option>
                     </select>
                 </div>
             </div>
@@ -168,6 +170,7 @@
                     <span class="x-red">*</span>工作经验</label>
                 <div class="layui-input-inline">
                     <select id="exp" name="exp" class="valid">
+                        <option value=" "> </option>
                         <option value="1">1年内</option>
                         <option value="2">1-2年</option>
                         <option value="2">2-3年</option>
@@ -183,8 +186,8 @@
                     <span class="x-red">*</span>紧急程度</label>
                 <div class="layui-input-inline">
                     <select id="urgent_level" name="urgent_level">
-                        <option value="1">加急</option>
                         <option value="2">高</option>
+                        <option value="1">加急</option>
                         <option value="3">正常</option>
                         <option value="3">暂缓</option>
 <!--                        <option value="3">关闭</option>-->
@@ -205,7 +208,7 @@
                     <span class="x-red">*</span>岗位要求
                 </label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" id="job_feature" name="desc" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入内容" id="job_feature" name="job_feature" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
