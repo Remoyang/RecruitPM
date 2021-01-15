@@ -6,7 +6,6 @@
 """
 
 # 导入正则,格式校验
-import json
 import re
 # 导入蓝图
 from . import api
