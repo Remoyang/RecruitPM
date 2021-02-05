@@ -15,7 +15,7 @@ from flask import request, jsonify, current_app, g
 # 导入自定义的状态码
 from deliver.utils.response_code import RET
 # 导入模型类
-from deliver.models import Resume, ResumeFile, ProjectJoinResume, ResumeLog, Project
+from deliver.models import Resume, ResumeFile, ProjectJoinResume, ResumeLog, Project, User
 # 导入数据库实例
 from deliver import db, constant
 # 导入登陆验证码装饰器
@@ -44,7 +44,7 @@ def resume():
     """
     user_data = request.get_json()
     if not user_data:
-        return jsonify(errno=RET.PARAMERR, errmsg='参数错误')
+        return jsonify(code=RET.PARAMERR, errmsg='参数错误')
 
     # 进一步获取详细的参数信息
     user_id = g.user_id
@@ -65,53 +65,53 @@ def resume():
     # 校验必填参数
     if not all(
             [name, uuid, phone, wxid, email, education, exp, wish_money, evaluate]):
-        return jsonify(errno=RET.PARAMERR, errmsg='参数不完整')
+        return jsonify(code=RET.PARAMERR, errmsg='参数不完整')
     # 校验姓名
     if not type(name) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='姓名格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='姓名格式错误')
     # 校验身份证
     if not re.match(r'^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$', uuid):
-        return jsonify(errno=RET.DATAERR, errmsg='身份证号格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='身份证号格式错误')
     # 校验手机号
     if not re.match(r'^1[34578]\d{9}$', phone):
-        return jsonify(errno=RET.DATAERR, errmsg='手机号格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='手机号格式错误')
     # 校验邮箱
     if not re.match(r'^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}', email):
-        return jsonify(errno=RET.DATAERR, errmsg='邮箱格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='邮箱格式错误')
     # 校验微信号
     if not re.match(r'^[a-zA-Z\d_]{5,}$', wxid):
-        return jsonify(errno=RET.DATAERR, errmsg='微信号格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='微信号格式错误')
     # 校验学历
     if not type(education) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='学历格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='学历格式错误')
     # 校验工作经验
     if not type(exp) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='工作经验格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='工作经验格式错误')
     # 校验期望薪资
     if not type(wish_money) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='期望薪资格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='期望薪资格式错误')
     # 校验推荐评语
     if not type(evaluate) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='推荐评语格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='推荐评语格式错误')
     # 校验自我评价
     if not type(self_evaluation) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='自我评价格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='自我评价格式错误')
     # 校验工作经验
     if not type(job_exp) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='工作经验格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='工作经验格式错误')
     # 校验项目经验
     if not type(recruit_exp) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='项目经验格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='项目经验格式错误')
 
     # 校验身份证是否已注册
     try:
         role = Resume.query.filter_by(uuid=uuid).first()
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify(errno=RET.DBERR, errmsg='获取候选人信息异常')
+        return jsonify(code=RET.DBERR, errmsg='获取候选人信息异常')
     else:
         if role:
-            return jsonify(errno=RET.DATAEXIST, errmsg='候选人已存在')
+            return jsonify(code=RET.DATAEXIST, errmsg='候选人已存在')
 
     # 根据身份证判断性别
     if (int(uuid[16:17]) % 2) == 0:
@@ -160,7 +160,10 @@ def resume():
         # 简历关联需求表
         rroject_join_resume = ProjectJoinResume(
             resume_id=resume_id,
+            resume_name=name,
+            resume_state=0,
             project_id="",
+            project_number="",
             project_name="",
             push_time="",
             adopt_time="",
@@ -177,10 +180,10 @@ def resume():
         current_app.logger.error(e)
         # 如果存储数据发生异常，需要进行回滚操作
         db.session.rollback()
-        return jsonify(errno=RET.DBERR, errmsg='保存角色信息异常')
+        return jsonify(code=RET.DBERR, errmsg='保存角色信息异常')
 
     # 返回结果
-    return jsonify(errno=RET.OK, errmsg='新增简历成功')
+    return jsonify(code=RET.OK, errmsg='新增简历成功')
 
 
 # 简历列表
@@ -200,15 +203,18 @@ def resume_list(page=None):
         page = 1
 
     try:
-        resume = Resume.query.paginate(page, 10, False)
+        # 查询简历信息
+        list_data = ProjectJoinResume.query.paginate(page, 10, False)
+        # 查询需求关联信息
+
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify(errno=RET.DBERR, errmsg='获取权限信息异常')
+        return jsonify(code=RET.DBERR, errmsg='获取权限信息异常')
 
-    data = [v.resume_to_dict() for v in resume.items]
+    data = [v.ProjectJoinResume_to_dicr() for v in list_data.items]
 
     # 返回结果
-    return jsonify(errno=RET.OK, errmsg='成功', data=data)
+    return jsonify(code=RET.OK, errmsg='成功', data=data)
 
 
 # 简历详情
@@ -224,22 +230,23 @@ def resume_show(rid=None):
     :param rid:
     :return:
     """
+
     if rid is None:
-        return jsonify(errno=RET.PARAMERR, errmsg='参数错误')
+        return jsonify(code=RET.PARAMERR, errmsg='参数错误')
     try:
-        resume = Resume.query.filter_by(id=int(rid)).first()
+        resume_data = Resume.query.get(rid)
         resume_file = ResumeFile.query.filter_by(resume_id=int(rid)).first()
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify(errno=RET.DBERR, errmsg='获取简历详情信息异常')
+        return jsonify(code=RET.DBERR, errmsg='获取简历详情信息异常')
 
-    data = resume.resume_to_dict()
+    data = resume_data.resume_to_dict()
     resume_file_data = resume_file.ResumeFile_to_dict()
     data["file_url"] = resume_file_data["url"]
     data["fileName"] = resume_file_data["fileName"]
 
-    return jsonify(errno=RET.OK, errmsg='成功', data=data)
- 
+    return jsonify(code=RET.OK, errmsg='成功', data=data)
+
 
 # 简历上传
 @api.route('/resume/uploadFiles', methods=['POST'])
@@ -248,7 +255,7 @@ def resume_uploadFiles():
     up_file = request.files.get('file')  # 上传的文件
 
     if up_file is None:
-        return jsonify(errno=RET.PARAMERR, errmsg='附件未上传')
+        return jsonify(code=RET.PARAMERR, errmsg='附件未上传')
     # 提取文件信息
     file_name = up_file.filename
     file_data = up_file.read()
@@ -258,7 +265,7 @@ def resume_uploadFiles():
         file_key = storage(file_data)
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify(errno=RET.THIRDERR, errmsg='附件上传失败')
+        return jsonify(code=RET.THIRDERR, errmsg='附件上传失败')
 
 
     resume_file = ResumeFile(
@@ -274,7 +281,7 @@ def resume_uploadFiles():
         db.session.commit()
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify(errno=RET.DBERR, errmsg='存储附件信息异常')
+        return jsonify(code=RET.DBERR, errmsg='存储附件信息异常')
 
     data = {
         "db": resume_file_id,
@@ -286,7 +293,7 @@ def resume_uploadFiles():
         # "type": "application/pdf"
     }
 
-    return jsonify(errno=RET.OK, errmsg='上传简历成功', data=data)
+    return jsonify(code=RET.OK, errmsg='上传简历成功', data=data)
 
 
 # 简历编辑
@@ -313,10 +320,10 @@ def project_add():
     user_data = request.get_json()
 
     if not user_data:
-        return jsonify(errno=RET.PARAMERR, errmsg='参数错误')
+        return jsonify(code=RET.PARAMERR, errmsg='参数错误')
 
     # 进一步获取详细的参数信息
-    user_id = g.user_id
+    # user_id = g.user_id
     job_name = user_data.get('job_name').encode("UTF-8")  # 岗位名称
     Job_type = user_data.get('Job_type').encode("UTF-8")  # 岗位类型
     level = user_data.get('level').encode("UTF-8")  # 级
@@ -339,68 +346,68 @@ def project_add():
 
     # 校验必填参数
     if not all(
-            [job_name, Job_type, level, other, lead, audition_site, education, exp, entry_time, offer, hc, project_name,
-             job_feature, job_duty, city, office_site, hc_type, urgent_level, info]):
-        return jsonify(errno=RET.PARAMERR, errmsg='参数不完整')
+                [job_name, Job_type, level, other, lead, audition_site, education, exp, entry_time, offer, hc, project_name,
+                 job_feature, job_duty, city, office_site, hc_type, urgent_level]):
+        return jsonify(code=RET.PARAMERR, errmsg='参数不完整')
     # 校验岗位名称
     if not type(job_name) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='岗位名称格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='岗位名称格式错误')
     # 校验岗位类型
     if not type(Job_type) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='岗位类型格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='岗位类型格式错误')
     # 校验级
     if not type(level) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='级格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='级格式错误')
     # 校验别
     if not type(other) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='别格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='别格式错误')
     # 校验面试官
     if not type(lead) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='面试官格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='面试官格式错误')
     # 校验面试地点
     if not type(audition_site) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='面试地点格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='面试地点格式错误')
     # 校验学历要求
     if not type(education) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='学历要求格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='学历要求格式错误')
     # 校验工作经验
     if not isinstance(exp, str):
-        return jsonify(errno=RET.DATAERR, errmsg='工作经验格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='工作经验格式错误')
     # 校验期望到岗时间
     if not isinstance(entry_time, str):
-        return jsonify(errno=RET.DATAERR, errmsg='期望到岗时间格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='期望到岗时间格式错误')
     # 校验报价
     if not isinstance(offer, str):
-        return jsonify(errno=RET.DATAERR, errmsg='报价格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='报价格式错误')
     # 校验岗位数
     if not isinstance(hc, str):
-        return jsonify(errno=RET.DATAERR, errmsg='岗位数格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='岗位数格式错误')
     # 校验项目名称
     if not isinstance(project_name, str):
-        return jsonify(errno=RET.DATAERR, errmsg='项目名称格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='项目名称格式错误')
     # 校验JD
     if not isinstance(job_feature, str):
-        return jsonify(errno=RET.DATAERR, errmsg='JD格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='JD格式错误')
     # 校验工作职责
     if not isinstance(job_duty, str):
-        return jsonify(errno=RET.DATAERR, errmsg='工作职责格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='工作职责格式错误')
     # 校验城市
     if not isinstance(city, str):
-        return jsonify(errno=RET.DATAERR, errmsg='城市格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='城市格式错误')
     # 校验办公地点
     if not isinstance(office_site, str):
-        return jsonify(errno=RET.DATAERR, errmsg='办公地点格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='办公地点格式错误')
     # 校验hc类型
     if not isinstance(hc_type, str):
-        return jsonify(errno=RET.DATAERR, errmsg='hc类型格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='hc类型格式错误')
     # 校验紧急程度
     if not isinstance(urgent_level, str):
-        return jsonify(errno=RET.DATAERR, errmsg='紧急程度格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='紧急程度格式错误')
     # 校验备注信息
     if not isinstance(info, str):
-        return jsonify(errno=RET.DATAERR, errmsg='备注信息格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='备注信息格式错误')
 
-    project_id = "tem-" + datetime.now().strftime('%Y-%m-%d-0%S')
+    project_id = "tem-" + datetime.now().strftime('%Y%m%d-0%S')
 
     # 需求信息
     project = Project(
@@ -415,6 +422,7 @@ def project_add():
         entry_time=entry_time,
         offer=offer,
         hc=hc,
+        pushnum=0,
         project_name=project_name,
         job_feature=job_feature,
         job_duty=job_duty,
@@ -423,6 +431,7 @@ def project_add():
         hc_type=hc_type,
         urgent_level=urgent_level,
         info=info,
+        state=1
         )
 
     try:
@@ -432,10 +441,10 @@ def project_add():
         current_app.logger.error(e)
         # 如果存储数据发生异常，需要进行回滚操作
         db.session.rollback()
-        return jsonify(errno=RET.DBERR, errmsg='保存需求信息异常')
+        return jsonify(code=RET.DBERR, errmsg='保存需求信息异常')
 
     # 返回结果
-    return jsonify(errno=RET.OK, errmsg='新增需求成功')
+    return jsonify(code=RET.OK, errmsg='新增需求成功')
 
 
 # 需求列表
@@ -458,12 +467,12 @@ def project_list(page=None):
         project = Project.query.paginate(page, 10, False)
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify(errno=RET.DBERR, errmsg='获取权限信息异常')
+        return jsonify(code=RET.DBERR, errmsg='获取需求信息异常')
 
     data = [v.project_to_dict() for v in project.items]
 
     # 返回结果
-    return jsonify(errno=RET.OK, errmsg='成功', data=data)
+    return jsonify(code=RET.OK, errmsg='成功', data=data)
 
 
 # 需求详情
@@ -478,19 +487,19 @@ def project_show(pid=None):
         4/返回响应数据
         :param pid:
         :return:
-        """
+    """
     if pid is None:
-        return jsonify(errno=RET.PARAMERR, errmsg='参数错误')
+        return jsonify(code=RET.PARAMERR, errmsg='参数错误')
 
     try:
         project = Project.query.filter_by(id=int(pid)).first()
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify(errno=RET.DBERR, errmsg='获取简历详情信息异常')
+        return jsonify(code=RET.DBERR, errmsg='获取简历详情信息异常')
 
     data = project.project_to_dict()
 
-    return jsonify(errno=RET.OK, errmsg='成功', data=data)
+    return jsonify(code=RET.OK, errmsg='成功', data=data)
 
 
 # 需求编辑
@@ -498,3 +507,103 @@ def project_show(pid=None):
 @login_required
 def project_edit():
     pass
+
+
+# 推荐显示名下候选人
+@api.route('/getResumesOfApply', methods=['GET'])
+@login_required
+def get_resumes_of_apply():
+    """
+    获取应聘简历信息接口
+    1/获取登录人身份ID
+    2/查询简历详情数据
+    3/组装为数据字典
+    4/返回响应数据
+    :return:
+    """
+
+    user_id = g.user_id
+    # 查询当“前用户”+“新简历”状态的候选人名称倒序展示
+    try:
+        project = Resume.query.filter_by(user_id=int(user_id), state=0).order_by(Resume.id.desc()).all()
+    except Exception as e:
+        current_app.logger.error(e)
+        return jsonify(code=RET.DBERR, errmsg='获取简历详情信息异常')
+
+    data = [v.resume_name_to_dict() for v in project]
+
+    return jsonify(code=RET.OK, errmsg='成功', data=data)
+
+
+# 推荐简历
+@api.route('/joinResumesOfApply/<int:applyId>', methods=['POST'])
+@login_required
+def project_join_resume(applyId=None):
+    """
+    修改被简历状态
+    修改关联情况
+    更新日志
+
+    推荐简历应聘简历业务接口
+    1/获取登录人身份ID
+    2/查询简历详情数据
+    3/组装为数据字典
+    4/返回响应数据
+    :return:
+    """
+
+    user_data = request.get_json()
+    print user_data
+
+    if not user_data:
+        return jsonify(code=RET.PARAMERR, errmsg='参数错误1')
+
+    if applyId is None:
+        return jsonify(code=RET.PARAMERR, errmsg='参数错误2')
+
+    user_id = g.user_id
+    projectId = applyId
+    resumeId = user_data.get('resumeId').encode("UTF-8")
+
+    if not all([projectId, resumeId]):
+        return jsonify(code=RET.PARAMERR, errmsg='参数不完整')
+
+    if not type(projectId) == int:
+        return jsonify(code=RET.PARAMERR, errmsg='参数格式有误1')
+
+    if not type(resumeId) == str:
+        return jsonify(code=RET.PARAMERR, errmsg='参数格式有误2')
+
+    state = 2
+    pushTime = datetime.now()
+
+    user_name = User.query.get(user_id).name
+    project_data = Project.query.filter_by(id=projectId).first()
+    project_name = project_data.job_name
+    project_number = project_data.project_data
+    log_info = "\n %s推荐简历" % user_name
+
+    try:
+        # 更新推荐关联表信息
+        ProjectJoinResume.query.filter_by(resume_id=int(resumeId)).update(
+            {"project_id": projectId, "project_name": project_name, "push_time": pushTime,
+             "project_number": project_number, "resume_state": state})
+
+        # 更新简历状态
+        Resume.query.filter_by(id=resumeId).update({"state": state})
+
+        # 更新需求日志
+        info_data = ResumeLog.query.join(ProjectJoinResume, ResumeLog.id == ProjectJoinResume.resumelog).filter(
+            ProjectJoinResume.resume_id == resumeId).first()
+        info_data.info += log_info
+        # 更新需求推荐数
+        project_data.pushnum += 1
+        db.session.commit()
+
+    except Exception as e:
+        current_app.logger.error(e)
+        # 如果存储数据发生异常，需要进行回滚操作
+        db.session.rollback()
+        return jsonify(code=RET.DBERR, errmsg='更新简历关联信息异常')
+
+    return jsonify(code=RET.OK, errmsg='推荐简历成功')
