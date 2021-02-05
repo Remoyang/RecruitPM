@@ -4,7 +4,7 @@ from datetime import datetime
 # 导入加密模块
 from werkzeug.security import generate_password_hash, check_password_hash
 # 导入配置
-from constant import RESUME_STATE
+from constant import RESUME_STATE, PROJECT_STATE, URGENT_LEVEL, HC_TYPE
 from deliver import db
 # from . import db
 import sys
@@ -197,7 +197,16 @@ class Resume(BaseModel, db.Model):
             "recruit_exp": self.recruit_exp,
             "state": RESUME_STATE[str(self.state)]
         }
+
         return resume_dict
+
+    def resume_name_to_dict(self):
+        resume_name_dict = {
+            "id": self.id,
+            "name": self.name,
+        }
+
+        return resume_name_dict
 
 
 class ResumeFile(BaseModel, db.Model):
@@ -212,7 +221,8 @@ class ResumeFile(BaseModel, db.Model):
 
     def ResumeFile_to_dict(self):
         """将简历附件信息转换为字典数据"""
-        ResumeFile_dict ={
+
+        ResumeFile_dict = {
             "id": self.id,
             "resume_id": self.resume_id,
             "url": self.url,
@@ -232,7 +242,10 @@ class ProjectJoinResume(BaseModel, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     resume_id = db.Column(db.Integer, db.ForeignKey("resume.id"), nullable=False)
+    resume_name = db.Column(db.String(11))  # 候选人名称
+    resume_state = db.Column(db.Integer, nullable=False)  # 简历状态
     project_id = db.Column(db.String(11))  # 推荐的项目岗位ID
+    project_number = db.Column(db.String(20))  # 需求编号
     project_name = db.Column(db.String(11))  # 推荐的项目岗位名称
     push_time = db.Column(db.DateTime)  # 推荐面试时间
     adopt_time = db.Column(db.DateTime)  # 面试通过时间
@@ -240,17 +253,35 @@ class ProjectJoinResume(BaseModel, db.Model):
 
     def ProjectJoinResume_to_dicr(self):
 
+        push_time = self.form_date(self.push_time)
+        adopt_time = self.form_date(self.adopt_time)
+        if not self.project_number:
+            project_number = ""
+        else:
+            project_number = self.project_number
+
         ProjectJoinResume_dicr = {
             "id": self.id,
             "resume_id": self.resume_id,
+            "resume_name": self.resume_name,
+            "resume_state": RESUME_STATE[str(self.resume_state)],
             "project_id": self.project_id,
+            "project_number": project_number,
             "project_name": self.project_name,
-            "push_time": self.push_time,
-            "adopt_time": self.adopt_time,
+            "push_time": push_time,
+            "adopt_time": adopt_time,
             "resumelog": self.resumelog
         }
 
         return ProjectJoinResume_dicr
+
+    def form_date(self, data):
+        """格式化时间格式"""
+        if type(data) == unicode:
+            data = ''
+        else:
+            data = data.strftime("%Y-%m-%d %H:%M:%S")
+        return data
 
 
 class ResumeLog(BaseModel, db.Model):
@@ -291,6 +322,7 @@ class Project(BaseModel, db.Model):
     entry_time = db.Column(db.DateTime)  # 期望到岗时间
     offer = db.Column(db.String(32), nullable=False)  # 报价
     hc = db.Column(db.Integer, nullable=False)  # hc
+    pushnum = db.Column(db.Integer, nullable=False)  # 推荐简历数
     project_name = db.Column(db.String(32), nullable=False)  # 项目名称
     job_feature = db.Column(db.TEXT, nullable=False)  # JD
     job_duty = db.Column(db.TEXT, nullable=False)  # 工作职责
@@ -299,9 +331,11 @@ class Project(BaseModel, db.Model):
     hc_type = db.Column(db.String(32), nullable=False)  # hc类型
     urgent_level = db.Column(db.String(32), nullable=False)  # 紧急程度
     info = db.Column(db.TEXT)   # 备注
+    state = db.Column(db.Integer, nullable=False)  # 需求状态 0 为停用 1为启用
 
     def project_to_dict(self):
         project_dict = {
+            "id": self.id,
             "project_id": self.project_id,
             "job_name": self.job_name,
             "Job_type": self.Job_type,
@@ -311,17 +345,20 @@ class Project(BaseModel, db.Model):
             "audition_site": self.audition_site,
             "education": self.education,
             "exp": self.exp,
-            "entry_time": self.entry_time,
+            "entry_time": self.entry_time.strftime('%Y-%m-%d'),
             "offer": self.offer,
             "hc": self.hc,
+            "pushnum": self.pushnum,
             "project_name": self.project_name,
             "job_feature": self.job_feature,
             "job_duty": self.job_duty,
             "city": self.city,
             "office_site": self.office_site,
-            "hc_type": self.hc_type,
-            "urgent_level": self.urgent_level,
-            "info": self.info
+            "hc_type": HC_TYPE[str(self.hc_type)],
+            "urgent_level": URGENT_LEVEL[str(self.urgent_level)],
+            "info": self.info,
+            "create_time": self.create_time.strftime('%Y-%m-%d'),
+            "state": PROJECT_STATE[str(self.state)]
         }
 
         return project_dict
