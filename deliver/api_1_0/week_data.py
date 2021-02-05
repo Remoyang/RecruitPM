@@ -19,4 +19,4 @@ def hrweek():
     """招聘每周数据"""
 
     week_data = {'user_id': WeekData.id}
-    return jsonify(errno=RET.OK, errmsg='OK', data=week_data)
+    return jsonify(code=RET.OK, errmsg='OK', data=week_data)

@@ -36,31 +36,31 @@ def login():
 
     # 校验参数存在
     if not user_data:
-        return jsonify(errno=RET.PARAMERR, errmsg='参数错误')
+        return jsonify(code=RET.PARAMERR, errmsg='参数错误')
     # 进一步获取详细的参数信息
     username = user_data.get('username').encode("UTF-8")
     password = user_data.get('password')
     # 校验参数用户名和密码的完整性
     if not all([username, password]):
-        return jsonify(errno=RET.PARAMERR, errmsg='参数缺失')
+        return jsonify(code=RET.PARAMERR, errmsg='参数缺失')
     # 校验用户名
     if not type(username) == str:
-        return jsonify(errno=RET.DATAERR, errmsg='用户名格式错误')
+        return jsonify(code=RET.DATAERR, errmsg='用户名格式错误')
     # 查询数据库，确认用户信息的存在，获取到密码信息
     try:
         user = User.query.filter_by(account=username).first()
     except Exception as e:
         current_app.logger.error(e)
-        return jsonify(errno=RET.DBERR, errmsg='获取用户信息异常')
+        return jsonify(code=RET.DBERR, errmsg='获取用户信息异常')
     # 校验查询结果，以及判断密码是否正确
     if user is None or not user.check_password(password):
-        return jsonify(errno=RET.DATAERR, errmsg='用户名或密码错误')
+        return jsonify(code=RET.DATAERR, errmsg='用户名或密码错误')
     # 缓存用户信息
     session['user_id'] = user.id
     session['name'] = username
     # session['mobile'] = mobile
     # 返回结果
-    return jsonify(errno=RET.OK, errmsg='登录成功', data={'user_id': user.id})
+    return jsonify(code=RET.OK, errmsg='登录成功', data={'user_id': user.id})
 
 
 @api.route('/session', methods=['DELETE'])
@@ -72,7 +72,7 @@ def logout():
     :return:
     """
     session.clear()
-    return jsonify(errno=RET.OK, errmsg='OK')
+    return jsonify(code=RET.OK, errmsg='OK')
 
 
 @api.route('/session', methods=['GET'])
@@ -82,6 +82,6 @@ def check_login():
     name = session.get('name')
     # 如果session中的name存在，则表示已经登陆，否则未登录
     if name:
-        return jsonify(errno=RET.OK, errmsg='true', data={"name": name})
+        return jsonify(code=RET.OK, errmsg='true', data={"name": name})
     else:
-        return jsonify(errno=RET.SESSIONERR, errmsg='false')
+        return jsonify(code=RET.SESSIONERR, errmsg='false')
