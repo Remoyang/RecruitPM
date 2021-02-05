@@ -82,6 +82,7 @@
 <!--            <button class="layui-btn" onclick="xadmin.open('创建需求','./需求添加.html',800,800)"><i class="layui-icon"></i>创建需求</button>-->
             <button class="layui-btn" onclick="xadmin.open('编辑需求','./project_edit.html',800,800)"><i class="layui-icon">&#xe642;</i>编辑需求</button>
             <button class="layui-btn" onclick="xadmin.open('推荐简历','./recommend.html',800,800)">推荐简历</button>
+            <button class="layui-btn" onclick="xadmin.open('修改需求状态','./recommend.html',800,800)">修改需求状态</button>
         </div>
         <div style="height: 30px;"></div>
     </div>
@@ -149,7 +150,7 @@
         // 获取该简历的详细信息
         $.get("/api/v1.0/project/show/" + pId, function (resp) {
         // alert(resp.data[0].auth_name);
-        if (resp.errno == '0') {
+        if (resp.code == '0') {
             var data = resp.data;
             console.log("data", data);
             $(".project-book").html(template("project-detail-tmpl", data));

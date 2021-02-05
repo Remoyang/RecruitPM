@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     // 获取该房屋的详细信息
     $.get("/api/v1.0/auth/list/1", function (resp) {
-        if ("0" == resp.errno) {
+        if ("0" == resp.code) {
             // $(".swiper-containerper-container").html(template("house-image-tmpl", {
             //
             //     img_urls: resp.data.house.img_urls,

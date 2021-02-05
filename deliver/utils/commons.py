@@ -23,7 +23,7 @@ def login_required(f):
         user_id = session.get("user_id")
         if user_id is None:
             # 如果session中不存在user_id，表示用户未登录
-            return jsonify(errno=RET.SESSIONERR, errmsg="用户未登录")
+            return jsonify(code=RET.SESSIONERR, errmsg="用户未登录")
         else:
             # 表示用户已登录，将可能用到的user_id用户编号保存到g中，供视图函数使用
             g.user_id = user_id

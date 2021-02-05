@@ -185,8 +185,8 @@
                 // ,data: {_token:1}
                 done: function (res) {
                     show = layer.msg('上传中，请稍候',{icon: 16,time:true,shade:0.8});
-                    console.log("res.errno1", res.errno);
-                    if (res.errno == "0") {
+                    console.log("res.errno1", res.code);
+                    if (res.code == "0") {
                         //上传完毕回调
 
                         console.log("res.db", res.data.db);
@@ -197,14 +197,14 @@
                             // console.log("fileName",rId);
                             xadmin.now_reload();
                         });
-                    } else if ( res.errno == "4103"){
+                    } else if ( res.code == "4103"){
                         // console.log("res.errno4", res.errno);
                         layer.close(show);
                         layer.msg('上传文件失败', {time: 6000,icon:5});
                         }
                 },
                 error: function (res) {
-                    console.log("res.errno3", res.errno);
+                    console.log("res.errno3", res.code);
                     layer.msg('上传文件失败', {time: 6000,icon:1});
                     layer.alert('上传文件失败',{time: 6000,icon:1});
                 }
@@ -224,7 +224,7 @@
                         data: JSON.stringify(resume_data),
                         success: function (res) {
                             // console.log(res);
-                            if (res.errno == "0") {
+                            if (res.code == "0") {
                                 // layer.msg(res.errmsg, {icon: 5});
                                 layer.alert("添加简历成功", {time: 4000,icon: 6});
                                 // function () {

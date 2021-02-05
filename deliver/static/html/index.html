@@ -178,7 +178,7 @@
             // $(".top-bar>.register-login").show();
             // 页面一加载就判断是否已经登陆，如果已经登陆，显示用户名，否则显示登陆注册按钮
             $.get('/api/v1.0/session', function (resp) {
-                if (resp.errno == '0') {
+                if (resp.code == '0') {
                     $(".top-bar>.user-info>.user-name").html(resp.data.name);
                     $(".top-bar.user-info").show();
                 } else {

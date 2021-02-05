@@ -10,7 +10,7 @@ $(function () {
                 data: JSON.stringify(data.field),
                 success: function (res) {
                     console.log(res);
-                    if (res.errno == "0") {
+                    if (res.code == "0") {
                         location.href = '/index.html'
                     } else {
                         layer.msg(res.errmsg, {icon: 5})

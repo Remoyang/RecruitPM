@@ -92,7 +92,7 @@
             <div class="layui-card-body ">
                 <button class="layui-btn" onclick="xadmin.open('编辑简历','./简历添加.html',800,800)"><i class="layui-icon">&#xe642;</i>编辑简历
                 </button>
-                <button class="layui-btn" onclick="xadmin.open('推荐简历','./recommend.html',800,800)"><i class="layui-icon">&#xe642;</i>推荐简历</button>
+<!--                <button class="layui-btn" onclick="xadmin.open('推荐简历','./recommend.html',800,800)"><i class="layui-icon">&#xe642;</i>推荐简历</button>-->
                 <button class="layui-btn layui-btn-danger" onclick="member_del('删除简历','./resime/del/')"><i class="layui-icon"></i>删除简历</button>
             </div>
             <div style="height: 30px;"></div>
@@ -162,7 +162,7 @@
         // 获取该简历的详细信息
         $.get("/api/v1.0/resume/show/" + rId, function (resp) {
             // alert(resp.data[0].auth_name);
-            if (resp.errno == '0') {
+            if (resp.code == '0') {
                 var data = resp.data;
                 // console.log("data", data);
                 $(".resume-book").html(template("resume-detail-tmpl", data));

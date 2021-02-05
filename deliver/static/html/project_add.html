@@ -259,7 +259,7 @@
                         data: JSON.stringify(resume_data),
                         success: function (res) {
                             // console.log(res);
-                            if (res.errno == "0") {
+                            if (res.code == "0") {
                                 // layer.msg(res.errmsg, {icon: 5});
                                 layer.alert("添加需求成功", {time: 4000,icon: 6});
                                 // //关闭当前frame

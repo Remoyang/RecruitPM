@@ -225,7 +225,7 @@
         // 获取该简历的详细信息
         $.get("/api/v1.0/project/list/1", function (resp) {
             // alert(resp.data[0].auth_name);
-            if (resp.errno == '0') {
+            if (resp.code == '0') {
                 var data = resp.data;
                 // console.log("data", data);
                 //方式一:嵌套渲染模板
@@ -248,7 +248,7 @@
                             '<td>' + result.hc + '</td>'+
                             '<td class="td-status">'+ result.state + '</td>'+
                             '<td class="td-manage">' +
-                                '<button class="layui-btn layui-btn layui-btn-normal"  onclick="xadmin.open(\'推荐简历\',\'./recommend.html\')">推荐简历</button> </td>'+
+                                '<button class="layui-btn layui-btn layui-btn-normal"  onclick="xadmin.open(\'推荐简历\',\'./recommend.html?applyId=' + result.id + '\')">推荐简历</button> </td>'+
                             // '<td className="td-manage">'+
                             //     '<a title="推荐简历" onClick="xadmin.open('+'"编辑"'+','+'"./recommend.html"'+')'+'" href="javascript:;">'+
                             //         '<span className="layui-btn layui-btn-normal layui-btn-mini">推荐简历</span>'+
