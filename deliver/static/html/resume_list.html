@@ -203,32 +203,32 @@
       }
 
     $(document).ready(function () {
-                $.get("/api/v1.0/resume/list/1", function (resp) {
-                    var $data = resp.data;
-                    // console.log(resp.data[0].name);
+        $.get("/api/v1.0/resume/list/1", function (resp) {
+            var $data = resp.data;
+            // console.log(resp.data[0].name);
 
-                    for(var index = 0; index < $data.length; index++){
+            for(var index = 0; index < $data.length; index++){
                         {
                             result = $data[index];
                             // console.log("result" + result.state);
                              // console.log('for ok');
                              $('.resume_list').append(
                                  '<tbody><tr>'
-                                 +'<td></td>'
-                                 +'<td><a href="./resume_show.html?id='+ result.id +'"<cite class="'+'layui-btn">'+ result.name +' </cite></a></td>'
-                                 +'<td>'+'</td>'
-                                 +'<td>'+result.state+'</td>'
-                                 +'<td>'+'</td>'
-                                 +'<td>'+'</td>'
+                                 +'<td>' + result.project_number + '</td>'
+                                 +'<td><a href="./resume_show.html?id='+ result.resume_id +'"<cite class="'+'layui-btn">'+ result.resume_name +' </cite></a></td>'
+                                 +'<td>'+ result.project_name +'</td>'
+                                 +'<td>'+ result.resume_state +'</td>'
+                                 +'<td>'+ result.push_time +'</td>'
+                                 +'<td>'+ result.adopt_time +'</td>'
                                  +'<td class="td-manage">'
-                                 +'<button class="layui-btn layui-btn layui-btn-normal"  onclick="xadmin.open(\'推荐简历\',\'./recommend.html\')"><i class='+'"layui-icon'+'">&#xe642;</i>推荐简历</button>'
+                                 +'<button class="layui-btn layui-btn layui-btn-normal"  onclick="xadmin.open(\'扭转简历状态\',\'./recommend.html?applyId='+ result.id + '\')"><i class="layui-icon">&#xe642;</i>扭转简历状态</button>'
                                   +'</td></tr></tbody>'
                                  // + '<td>'+result.auth_name+'</td>'
                              );
                         }
 
                 }});
-            });
+        });
 
     </script>
 </html>
