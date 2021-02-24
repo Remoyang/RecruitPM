@@ -10,6 +10,7 @@
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="stylesheet" href="/static/css/font.css">
     <link rel="stylesheet" href="/static/css/xadmin.css">
+    <link rel="stylesheet" href="/static/css/tab.css">
     <script type="text/javascript" src="/static/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/static/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -135,15 +136,15 @@
         </tr>
         <tr>
             <td>工作经验:</td>
-            <td>{{job_exp}}</td>
+            <td class="content" >{{job_exp}}</td>
         </tr>
         <tr>
             <td>项目经验:</td>
-            <td>{{recruit_exp}}</td>
+            <td class="content" >{{recruit_exp}}</td>
         </tr>
         <tr>
             <td>推荐评语:</td>
-            <td>{{evaluate}}</td>
+            <td class="content" >{{evaluate}}</td>
         </tr>
         <tr>
             <th colspan="2">附件下载：<a href={{ file_url }}>{{ fileName }}</a></th>
