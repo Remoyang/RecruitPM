@@ -200,7 +200,7 @@
                     } else if ( res.code == "4103"){
                         // console.log("res.errno4", res.errno);
                         layer.close(show);
-                        layer.msg('上传文件失败', {time: 6000,icon:5});
+                        layer.msg('上传文件失败', {time: 3000,icon:5});
                         }
                 },
                 error: function (res) {
@@ -212,7 +212,6 @@
 
             //监听提交
             form.on('submit(add)', function (data) {
-                    // console.log(data);
                     data.field.file_id = $file_id
                     var resume_data = data.field
                     // console.log(data.field.file_id)
@@ -223,17 +222,10 @@
                         contentType: 'application/json',
                         data: JSON.stringify(resume_data),
                         success: function (res) {
-                            // console.log(res);
+
                             if (res.code == "0") {
                                 // layer.msg(res.errmsg, {icon: 5});
                                 layer.alert("添加简历成功", {time: 4000,icon: 6});
-                                // function () {
-                                //     // 获得frame索引
-                                //     var index = parent.layer.getFrameIndex(window.name);
-                                //     //关闭当前frame
-                                //     parent.layer.close(index);
-                                //     });
-                                // location.href = '/index.html'
                                 // //关闭当前frame
                                 xadmin.close();
                                 // // 可以对父窗口进行刷新
@@ -244,7 +236,11 @@
                                 // layer.msg(res.errmsg, {icon: 5})
                                 return false;
                             }
-                        }
+                        },
+                        error:function (data, status, e){
+                             layer.alert("添加简历失败", {time: 4000,icon: 5});
+                       }
+
                     });
 
                 });

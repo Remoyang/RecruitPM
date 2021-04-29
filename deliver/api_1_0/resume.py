@@ -51,7 +51,7 @@ def resume():
     name = user_data.get('name').encode("UTF-8")  # 姓名
     uuid = user_data.get('uuid').encode("UTF-8")  # 身份证号
     phone = user_data.get('phone').encode("UTF-8")  # 手机号码
-    wxid = user_data.get('wxid').encode("UTF-8")
+    wxid = user_data.get('wxid').encode("UTF-8")  # 微信号
     email = user_data.get('email').encode("UTF-8")  # 邮箱
     education = user_data.get('education').encode("UTF-8")  # 学历
     exp = user_data.get('exp').encode("UTF-8")   # 工作经验
@@ -121,8 +121,8 @@ def resume():
 
     # 根据身份证计算年龄
     birth = uuid[6:14]
-    barth_day = datetime.datetime.strptime(birth, "%Y%m%d")
-    now = datetime.datetime.now()
+    barth_day = datetime.strptime(birth, "%Y%m%d")
+    now = datetime.now()
     days = (now - barth_day).days
     age = days // 365
 
@@ -165,8 +165,8 @@ def resume():
             project_id="",
             project_number="",
             project_name="",
-            push_time="",
-            adopt_time="",
+            # push_time="",
+            # adopt_time="",
             resumelog=resumelog_id
         )
 
@@ -175,6 +175,7 @@ def resume():
         # 判断是否有附件
         if file_id:
             ResumeFile.query.filter_by(id=file_id).update({"resume_id": resume_id})
+
         db.session.commit()
     except Exception as e:
         current_app.logger.error(e)
@@ -205,7 +206,6 @@ def resume_list(page=None):
     try:
         # 查询简历信息
         list_data = ProjectJoinResume.query.paginate(page, 10, False)
-        # 查询需求关联信息
 
     except Exception as e:
         current_app.logger.error(e)
@@ -575,12 +575,12 @@ def project_join_resume(applyId=None):
         return jsonify(code=RET.PARAMERR, errmsg='参数格式有误2')
 
     state = 2
-    pushTime = datetime.now()
+    pushTime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     user_name = User.query.get(user_id).name
     project_data = Project.query.filter_by(id=projectId).first()
     project_name = project_data.job_name
-    project_number = project_data.project_data
+    project_number = project_data.project_id
     log_info = "\n %s推荐简历" % user_name
 
     try:
