@@ -279,6 +279,8 @@ class ProjectJoinResume(BaseModel, db.Model):
         """格式化时间格式"""
         if type(data) == unicode:
             data = ''
+        elif not data:
+            data = ''
         else:
             data = data.strftime("%Y-%m-%d %H:%M:%S")
         return data
